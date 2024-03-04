@@ -62,20 +62,47 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject Image_Prefab;
 
+    [SerializeField]
+    private PayoutCalculation PayCalculator;
+
     private Tweener tweener1;
     private Tweener tweener2;
     private Tweener tweener3;
     private Tweener tweener4;
     private Tweener tweener5;
 
+    int numberOfSlots = 0;
+
     private void Start()
     {
         if (SlotStart_Button) SlotStart_Button.onClick.RemoveAllListeners();
         if (SlotStart_Button) SlotStart_Button.onClick.AddListener(StartSlots);
-        PopulateSlot(Row_1_value, slot1_Image, Slot_1_Transform, Slot_1_Object);
-        PopulateSlot(Row_1_value, slot2_Image, Slot_2_Transform, Slot_2_Object);
-        PopulateSlot(Row_1_value, slot3_Image, Slot_3_Transform, Slot_3_Object);
-        PopulateSlot(Row_1_value, slot4_Image, Slot_4_Transform, Slot_4_Object);
+        numberOfSlots = 5;
+        PopulateInitalSlots(numberOfSlots);
+    }
+
+    private void PopulateInitalSlots(int number)
+    {
+        if (number >= 1) 
+        {
+            PopulateSlot(Row_1_value, slot1_Image, Slot_1_Transform, Slot_1_Object);
+        }
+        if (number >= 2)
+        {
+            PopulateSlot(Row_1_value, slot2_Image, Slot_2_Transform, Slot_2_Object);
+        }
+        if (number >= 3)
+        {
+            PopulateSlot(Row_1_value, slot3_Image, Slot_3_Transform, Slot_3_Object);
+        }
+        if (number >= 4)
+        {
+            PopulateSlot(Row_1_value, slot4_Image, Slot_4_Transform, Slot_4_Object);
+        }
+        if (number >= 5)
+        {
+            PopulateSlot(Row_1_value, slot5_Image, Slot_5_Transform, Slot_5_Object);
+        }
     }
 
     private void PopulateSlot(List<int> values, List<Image> slot_Images, Transform SlotTransform, GameObject SlotObject)
@@ -87,9 +114,12 @@ public class SlotBehaviour : MonoBehaviour
             slot_Images.Add(myImg.GetComponent<Image>());
             slot_Images[i].sprite = myImages[values[i]];
         }
-        GameObject mylastImg = Instantiate(Image_Prefab, SlotTransform);
-        slot_Images.Add(mylastImg.GetComponent<Image>());
-        slot_Images[slot_Images.Count - 1].sprite = myImages[values[0]];
+        for(int k = 0; k<2; k++)
+        {
+            GameObject mylastImg = Instantiate(Image_Prefab, SlotTransform);
+            slot_Images.Add(mylastImg.GetComponent<Image>());
+            slot_Images[slot_Images.Count - 1].sprite = myImages[values[k]];
+        }
         if (mainContainer_RT) LayoutRebuilder.ForceRebuildLayoutImmediate(mainContainer_RT);
         tweenHeight = (values.Count * 100)-150;
     }
@@ -101,18 +131,60 @@ public class SlotBehaviour : MonoBehaviour
 
     private IEnumerator TweenRoutine()
     {
-        InitializeTweening1(Slot_1_Transform);
-        InitializeTweening2(Slot_2_Transform);
-        InitializeTweening3(Slot_3_Transform);
-        InitializeTweening4(Slot_4_Transform);
+        if (numberOfSlots >= 1)
+        {
+            InitializeTweening1(Slot_1_Transform);
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        if (numberOfSlots >= 2)
+        {
+            InitializeTweening2(Slot_2_Transform);
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        if (numberOfSlots >= 3)
+        {
+            InitializeTweening3(Slot_3_Transform);
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        if (numberOfSlots >= 4)
+        {
+            InitializeTweening4(Slot_4_Transform);
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        if (numberOfSlots >= 5)
+        {
+            InitializeTweening5(Slot_5_Transform);
+        }
         yield return new WaitForSeconds(8);
-        StopTweening1(5, Slot_1_Transform);
+        if (numberOfSlots >= 1)
+        {
+            StopTweening1(5, Slot_1_Transform);
+        }
         yield return new WaitForSeconds(1);
-        StopTweening2(8, Slot_2_Transform);
+        if (numberOfSlots >= 2)
+        {
+            StopTweening2(8, Slot_2_Transform);
+        }
         yield return new WaitForSeconds(1);
-        StopTweening3(7, Slot_3_Transform);
+        if (numberOfSlots >= 3)
+        {
+            StopTweening3(7, Slot_3_Transform);
+        }
         yield return new WaitForSeconds(1);
-        StopTweening4(11, Slot_4_Transform);
+        if (numberOfSlots >= 4)
+        {
+            StopTweening4(11, Slot_4_Transform);
+        }
+        yield return new WaitForSeconds(1);
+        if (numberOfSlots >= 5)
+        {
+            StopTweening5(9, Slot_5_Transform);
+        }
+        PayCalculator.GeneratePayoutLine(20);
     }
 
     private void InitializeTweening1(Transform slotTransform)
