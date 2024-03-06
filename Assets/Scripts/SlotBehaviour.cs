@@ -53,6 +53,40 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private Button SlotStart_Button;
 
+    [Header("Animated Sprites")]
+    [SerializeField]
+    private Sprite[] A_Sprite;
+    [SerializeField]
+    private Sprite[] Bonus_Sprite;
+    [SerializeField]
+    private Sprite[] CoinSpin_Sprite;
+    [SerializeField]
+    private Sprite[] Coins_Sprite;
+    [SerializeField]
+    private Sprite[] Fan_Sprite;
+    [SerializeField]
+    private Sprite[] FreeSpin_Sprite;
+    [SerializeField]
+    private Sprite[] J_Sprite;
+    [SerializeField]
+    private Sprite[] JackPot_Sprite;
+    [SerializeField]
+    private Sprite[] K_Sprite;
+    [SerializeField]
+    private Sprite[] Q_Sprite;
+    [SerializeField]
+    private Sprite[] Scatter_Sprite;
+    [SerializeField]
+    private Sprite[] Scroll_Sprite;
+    [SerializeField]
+    private Sprite[] Sycee_Sprite;
+    [SerializeField]
+    private Sprite[] TeaPot_Sprite;
+    [SerializeField]
+    private Sprite[] Ten_Sprite;
+    [SerializeField]
+    private Sprite[] Wild_Sprite;
+
     [Header("Dummy Values")]
     [SerializeField]
     private List<int> Row_1_value;
@@ -71,13 +105,21 @@ public class SlotBehaviour : MonoBehaviour
     private Tweener tweener4;
     private Tweener tweener5;
 
+    [SerializeField]
+    private List<ImageAnimation> TempList;
+
     int numberOfSlots = 0;
 
-    int dummynum1 = 3;
-    int dummynum2 = 3;
-    int dummynum3 = 3;
-    int dummynum4 = 5;
-    int dummynum5 = 5;
+    [SerializeField]
+    int dummynum1 = 0;
+    [SerializeField]
+    int dummynum2 = 0;
+    [SerializeField]
+    int dummynum3 = 0;
+    [SerializeField]
+    int dummynum4 = 0;
+    [SerializeField]
+    int dummynum5 = 0;
 
     private void Start()
     {
@@ -119,6 +161,7 @@ public class SlotBehaviour : MonoBehaviour
             GameObject myImg = Instantiate(Image_Prefab, SlotTransform);
             slot_Images.Add(myImg.GetComponent<Image>());
             slot_Images[i].sprite = myImages[values[i]];
+            PopulateAnimationSprites(slot_Images[i].gameObject.GetComponent<ImageAnimation>(), values[i]);
         }
         for(int k = 0; k<2; k++)
         {
@@ -130,8 +173,115 @@ public class SlotBehaviour : MonoBehaviour
         tweenHeight = (values.Count * 100)-150;
     }
 
+    private void PopulateAnimationSprites(ImageAnimation animScript, int val)
+    {
+        switch(val)
+        {
+            case 0:
+                for (int i = 0; i < Ten_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Ten_Sprite[i]);
+                }
+                break;
+            case 1:
+                for (int i = 0; i < A_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(A_Sprite[i]);
+                }
+                break;
+            case 2:
+                for (int i = 0; i < Bonus_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Bonus_Sprite[i]);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < Coins_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Coins_Sprite[i]);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < Fan_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Fan_Sprite[i]);
+                }
+                break;
+            case 5:
+                for (int i = 0; i < FreeSpin_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(FreeSpin_Sprite[i]);
+                }
+                break;
+            case 6:
+                for (int i = 0; i < J_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(J_Sprite[i]);
+                }
+                break;
+            case 7:
+                for (int i = 0; i < JackPot_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(JackPot_Sprite[i]);
+                }
+                break;
+            case 8:
+                for (int i = 0; i < K_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(K_Sprite[i]);
+                }
+                break;
+            case 9:
+                for (int i = 0; i < Q_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Q_Sprite[i]);
+                }
+                break;
+            case 10:
+                for (int i = 0; i < Scatter_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Scatter_Sprite[i]);
+                }
+                break;
+            case 11:
+                for (int i = 0; i < Scroll_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Scroll_Sprite[i]);
+                }
+                break;
+            case 12:
+                for (int i = 0; i < Sycee_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Sycee_Sprite[i]);
+                }
+                break;
+            case 13:
+                for (int i = 0; i < TeaPot_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(TeaPot_Sprite[i]);
+                }
+                break;
+            case 14:
+                for (int i = 0; i < Wild_Sprite.Length; i++)
+                {
+                    animScript.textureArray.Add(Wild_Sprite[i]);
+                }
+                break;
+        }
+    }
+
     private void StartSlots()
     {
+        dummynum1 = Random.Range(3, 13);
+        dummynum2 = Random.Range(3, 13);
+        dummynum3 = Random.Range(3, 13);
+        dummynum4 = Random.Range(3, 13);
+        dummynum5 = Random.Range(3, 13);
+        if (TempList.Count > 0) 
+        {
+            StopGameAnimation();
+        }
+        PayCalculator.ResetLines();
         StartCoroutine(TweenRoutine());
     }
 
@@ -194,6 +344,50 @@ public class SlotBehaviour : MonoBehaviour
         CalculatePayoutLines(12 - dummynum1, 12 - dummynum2, 12 - dummynum3, 12 - dummynum4, 12 - dummynum5);
     }
 
+    private void StartGameAnimation(GameObject a1 = null, GameObject a2 = null, GameObject a3 = null, GameObject a4 = null, GameObject a5 = null)
+    {
+        if (a1 != null)
+        {
+            ImageAnimation temp = a1.GetComponent<ImageAnimation>();
+            temp.StartAnimation();
+            TempList.Add(temp);
+        }
+        if (a2 != null)
+        {
+            ImageAnimation temp = a2.GetComponent<ImageAnimation>();
+            temp.StartAnimation();
+            TempList.Add(temp);
+        }
+        if (a3 != null)
+        {
+            ImageAnimation temp = a3.GetComponent<ImageAnimation>();
+            temp.StartAnimation();
+            TempList.Add(temp);
+        }
+        if (a4 != null)
+        {
+            ImageAnimation temp = a4.GetComponent<ImageAnimation>();
+            temp.StartAnimation();
+            TempList.Add(temp);
+        }
+        if (a5 != null)
+        {
+            ImageAnimation temp = a5.GetComponent<ImageAnimation>();
+            temp.StartAnimation();
+            TempList.Add(temp);
+        }
+    }
+
+    private void StopGameAnimation()
+    {
+        for (int i = 0; i < TempList.Count; i++)
+        {
+            TempList[i].StopAnimation();
+        }
+        TempList.Clear();
+        TempList.TrimExcess();
+    }
+
     #region PayoutLineCalculation
     private void CalculatePayoutLines(int a1, int a2, int a3, int a4, int a5)
     {
@@ -217,6 +411,26 @@ public class SlotBehaviour : MonoBehaviour
         Sprite z1 = slot5_Image[a5].sprite;
         Sprite z2 = slot5_Image[a5 + 1].sprite;
         Sprite z3 = slot5_Image[a5 + 2].sprite;
+
+        GameObject b1 = slot1_Image[a1].gameObject;
+        GameObject b2 = slot1_Image[a1 + 1].gameObject;
+        GameObject b3 = slot1_Image[a1 + 2].gameObject;
+
+        GameObject c1 = slot2_Image[a2].gameObject;
+        GameObject c2 = slot2_Image[a2 + 1].gameObject;
+        GameObject c3 = slot2_Image[a2 + 2].gameObject;
+
+        GameObject d1 = slot3_Image[a3].gameObject;
+        GameObject d2 = slot3_Image[a3 + 1].gameObject;
+        GameObject d3 = slot3_Image[a3 + 2].gameObject;
+
+        GameObject e1 = slot4_Image[a4].gameObject;
+        GameObject e2 = slot4_Image[a4 + 1].gameObject;
+        GameObject e3 = slot4_Image[a4 + 2].gameObject;
+
+        GameObject f1 = slot5_Image[a5].gameObject;
+        GameObject f2 = slot5_Image[a5 + 1].gameObject;
+        GameObject f3 = slot5_Image[a5 + 2].gameObject;
         #endregion
 
         if ((u2 == v2) && (u2 == x2) || (v2 == x2) && (v2 == y2) || (x2 == y2) && (x2 == z2))
@@ -226,27 +440,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v2) && (u2 == x2) && (u2 == y2) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(1);
+                    StartGameAnimation(b2, c2, d2, e2, f2);
                 }
                 else if((u2 == v2) && (u2 == x2) && (u2 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(1, 4);
+                    StartGameAnimation(c2, d2, e2, f2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(1, 4, 2);
+                    StartGameAnimation(b2, c2, d2, e2);
                 }
             }
             else if((u2 == v2) && (u2 == x2))
             {
                 PayCalculator.GeneratePayoutLine(1, 3);
+                StartGameAnimation(b2, c2, d2);
             }
             else if ((v2 == x2) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(1, 3, 0, 2);
+                StartGameAnimation(c2, d2, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(1, 3, 0, 3);
+                StartGameAnimation(d2, e2, f2);
             }
         } //Middle Line
 
@@ -257,27 +477,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v1) && (u1 == x1) && (u1 == y1) && (u1 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(2);
+                    StartGameAnimation(b1, c1, d1, e1, f1);
                 }
                 else if((u1 == v1) && (u1 == x1) && (u1 == y1))
                 {
                     PayCalculator.GeneratePayoutLine(2, 4);
+                    StartGameAnimation(b1, c1, d1, e1);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(2, 4, 2);
+                    StartGameAnimation(c1, d1, e1, f1);
                 }
             }
             else if((u1 == v1) && (u1 == x1))
             {
                 PayCalculator.GeneratePayoutLine(2, 3);
+                StartGameAnimation(b1, c1, d1);
             }
             else if((v3 == x3) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(2, 3, 0, 2);
+                StartGameAnimation(c1, d1, e1);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(2, 3, 0, 3);
+                StartGameAnimation(d1, e1, f1);
             }
         } //Top Line
 
@@ -288,27 +514,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u3 == v3) && (u3 == x3) && (u3 == y3) && (u3 == z3))
                 {
                     PayCalculator.GeneratePayoutLine(3);
+                    StartGameAnimation(b3, c3, d3, e3, f3);
                 }
                 else if ((u3 == v3) && (u3 == x3) && (u3 == y3))
                 {
                     PayCalculator.GeneratePayoutLine(3, 4);
+                    StartGameAnimation(b3, c3, d3, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(3, 4, 2);
+                    StartGameAnimation(c3, d3, e3, f3);
                 }
             }
             else if ((u3 == v3) && (u3 == x3)) 
             {
                 PayCalculator.GeneratePayoutLine(3, 3);
+                StartGameAnimation(b3, c3, d3);
             }
             else if ((v3 == x3) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(3, 3, 0, 2);
+                StartGameAnimation(c3, d3, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(3, 3, 0, 3);
+                StartGameAnimation(d3, e3, f3);
             }
         } //Bottom Line
 
@@ -319,27 +551,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v2) && (u1 == x3) && (u1 == y2) && (u1 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(4);
+                    StartGameAnimation(b1, c2, d3, e2, f1);
                 }
                 else if((u1 == v2) && (u1 == x3) && (u1 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(4, 4);
+                    StartGameAnimation(b1, c2, d3, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(4, 4, 2);
+                    StartGameAnimation(c2, d3, e2, f1);
                 }
             }
             else if((u1 == v2) && (u1 == x3))
             {
                 PayCalculator.GeneratePayoutLine(4, 3);
+                StartGameAnimation(b1, c2, d3);
             }
             else if ((v2 == x3) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(4, 3, 0, 2);
+                StartGameAnimation(c2, d3, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(4, 3, 0, 3);
+                StartGameAnimation(d3, e2, f1);
             }
         } //V Line
 
@@ -350,27 +588,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u3 == v2) && (u3 == x1) && (u3 == y2) && (u3 == z3))
                 {
                     PayCalculator.GeneratePayoutLine(5);
+                    StartGameAnimation(b3, c2, d1, e2, f3);
                 }
                 else if((u3 == v2) && (u3 == x1) && (u3 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(5, 4);
+                    StartGameAnimation(b3, c2, d1, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(5, 4, 2);
+                    StartGameAnimation(c2, d1, e2, f3);
                 }
             }
             else if((u3 == v2) && (u3 == x1))
             {
                 PayCalculator.GeneratePayoutLine(5, 3);
+                StartGameAnimation(b3, c2, d1);
             }
             else if((v2 == x1) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(5, 3, 0, 2);
+                StartGameAnimation(c2, d1, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(5, 3, 0, 3);
+                StartGameAnimation(d1, e2, f3);
             }
         } //Reverse V Line
 
@@ -381,27 +625,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v1) && (u2 == x2) && (u2 == y1) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(6);
+                    StartGameAnimation(b2, c1, d2, e1, f2);
                 }
                 else if((u2 == v1) && (u2 == x2) && (u2 == y1))
                 {
                     PayCalculator.GeneratePayoutLine(6, 4);
+                    StartGameAnimation(b2, c1, d2, e1);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(6, 4, 2);
+                    StartGameAnimation(c1, d2, e1, f2);
                 }
             }
             else if((u2 == v1) && (u2 == x2))
             {
                 PayCalculator.GeneratePayoutLine(6, 3);
+                StartGameAnimation(b2, c1, d2);
             }
             else if ((v1 == x2) && (v1 == y1))
             {
                 PayCalculator.GeneratePayoutLine(6, 3, 0, 2);
+                StartGameAnimation(c1, d2, e1);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(6, 3, 0, 3);
+                StartGameAnimation(d2, e1, f2);
             }
         } //ZigZag Line
 
@@ -412,27 +662,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v3) && (u2 == x2) && (u2 == y3) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(7);
+                    StartGameAnimation(b2, c3, d2, e3, f2);
                 }
                 else if((u2 == v3) && (u2 == x2) && (u2 == y3) || (u2 == x2) && (u2 == y3) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(7, 4);
+                    StartGameAnimation(b2, c3, d2, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(7, 4, 2);
+                    StartGameAnimation(c3, d2, e3, f2);
                 }
             }
             else if((u2 == v3) && (u2 == x2))
             {
                 PayCalculator.GeneratePayoutLine(7, 3);
+                StartGameAnimation(b2, c3, d2);
             }
             else if ((v3 == x2) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(7, 3, 0, 2);
+                StartGameAnimation(c3, d2, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(7, 3, 0, 3);
+                StartGameAnimation(d2, e3, f2);
             }
         } //Reverse ZigZag Line
 
@@ -443,27 +699,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v1) && (u1 == x2) && (u1 == y3) && (u1 == z3))
                 {
                     PayCalculator.GeneratePayoutLine(8);
+                    StartGameAnimation(b1, c1, d2, e3, f3);
                 }
                 else if((u1 == v1) && (u1 == x2) && (u1 == y3))
                 {
                     PayCalculator.GeneratePayoutLine(8, 4);
+                    StartGameAnimation(b1, c1, d2, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(8, 4, 2);
+                    StartGameAnimation(c1, d2, e3, f3);
                 }
             }
             else if((u1 == v1) && (u1 == x2))
             {
                 PayCalculator.GeneratePayoutLine(8, 3);
+                StartGameAnimation(b1, c1, d2);
             }
             else if((v1 == x2) && (v1 == y3))
             {
                 PayCalculator.GeneratePayoutLine(8, 3, 0, 2);
+                StartGameAnimation(c1, d2, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(8, 3, 0, 3);
+                StartGameAnimation(d2, e3, f3);
             }
         } //Z Line
 
@@ -474,27 +736,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u3 == v3) && (u3 == x2) && (u3 == y1) && (u3 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(9);
+                    StartGameAnimation(b3, c3, d2, e1, f1);
                 }
                 else if((u3 == v3) && (u3 == x2) && (u3 == y1))
                 {
                     PayCalculator.GeneratePayoutLine(9, 4);
+                    StartGameAnimation(b3, c3, d2, e1);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(9, 4, 2);
+                    StartGameAnimation(c3, d2, e1, f1);
                 }
             }
             else if((u3 == v3) && (u3 == x2))
             {
                 PayCalculator.GeneratePayoutLine(9, 3);
+                StartGameAnimation(b3, c3, d2);
             }
             else if((v3 == x2) && (v3 == y1))
             {
                 PayCalculator.GeneratePayoutLine(9, 3, 0, 2);
+                StartGameAnimation(c3, d2, e1);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(9, 3, 0, 3);
+                StartGameAnimation(d2, e1, f1);
             }
         } //Reverse Z Line
 
@@ -505,27 +773,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v3) && (u2 == x2) && (u2 == y1) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(10);
+                    StartGameAnimation(b2, c3, d2, e1, f2);
                 }
                 else if((u2 == v3) && (u2 == x2) && (u2 == y1))
                 {
                     PayCalculator.GeneratePayoutLine(10, 4);
+                    StartGameAnimation(b2, c3, d2, e1);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(10, 4, 2);
+                    StartGameAnimation(c3, d2, e1, f2);
                 }
             }
             else if((u2 == v3) && (u2 == x2))
             {
                 PayCalculator.GeneratePayoutLine(10, 3);
+                StartGameAnimation(b2, c3, d2);
             }
             else if((v3 == x2) && (v3 == y1))
             {
                 PayCalculator.GeneratePayoutLine(10, 3, 0, 2);
+                StartGameAnimation(c3, d2, e1);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(10, 3, 0 , 3);
+                StartGameAnimation(d2, e1, f2);
             }
         } //Uneven Line
 
@@ -536,27 +810,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v1) && (u2 == x2) && (u2 == y3) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(11);
+                    StartGameAnimation(b2, c1, d2, e3, f2);
                 }
                 else if((u2 == v1) && (u2 == x2) && (u2 == y3))
                 {
                     PayCalculator.GeneratePayoutLine(11, 4);
+                    StartGameAnimation(b2, c1, d2, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(11, 4, 2);
+                    StartGameAnimation(c1, d2, e3, f2);
                 }
             }
             else if((u2 == v1) && (u2 == x2))
             {
                 PayCalculator.GeneratePayoutLine(11, 3);
+                StartGameAnimation(b2, c1, d2);
             }
             else if((v1 == x2) && (v1 == y3))
             {
                 PayCalculator.GeneratePayoutLine(11, 3, 0, 2);
+                StartGameAnimation(c1, d2, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(11, 3, 0, 3);
+                StartGameAnimation(d2, e3, f2);
             }
         } //Reverse Uneven Line
 
@@ -567,27 +847,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v2) && (u1 == x2) && (u1 == y2) && (u1 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(12);
+                    StartGameAnimation(b1, c2, d2, e2, f1);
                 }
                 else if((u1 == v2) && (u1 == x2) && (u1 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(12, 4);
+                    StartGameAnimation(b1, c2, d2, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(12, 4, 2);
+                    StartGameAnimation(c2, d2, e2, f1);
                 }
             }
             else if((u1 == v2) && (u1 == x2))
             {
                 PayCalculator.GeneratePayoutLine(12, 3);
+                StartGameAnimation(b1, c2, d2);
             }
             else if((v2 == x2) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(12, 3, 0 ,2);
+                StartGameAnimation(c2, d2, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(12, 3, 0, 3);
+                StartGameAnimation(d2, e2, f1);
             }
         } //U Line
 
@@ -598,27 +884,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u3 == v2) && (u3 == x2) && (u3 == y2) && (u3 == z3))
                 {
                     PayCalculator.GeneratePayoutLine(13);
+                    StartGameAnimation(b3, c2, d2, e2, f3);
                 }
                 else if((u3 == v2) && (u3 == x2) && (u3 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(13, 4);
+                    StartGameAnimation(b3, c2, d2, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(13, 4, 2);
+                    StartGameAnimation(c2, d2, e2, f3);
                 }
             }
             else if((u3 == v2) && (u3 == x2))
             {
                 PayCalculator.GeneratePayoutLine(13, 3);
+                StartGameAnimation(b3, c2, d2);
             }
             else if((v2 == x2) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(13, 3, 0, 2);
+                StartGameAnimation(c2, d2, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(13, 3, 0, 3);
+                StartGameAnimation(d2, e2, f3);
             }
         } //Reverse U Line
 
@@ -629,27 +921,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v2) && (u1 == x1) && (u1 == y2) && (u1 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(14);
+                    StartGameAnimation(b1, c2, d1, e2, f1);
                 }
                 else if((u1 == v2) && (u1 == x1) && (u1 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(14, 4);
+                    StartGameAnimation(b1, c2, d1, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(14, 4, 2);
+                    StartGameAnimation(c2, d1, e2, f1);
                 }
             }
             else if((u1 == v2) && (u1 == x1))
             {
                 PayCalculator.GeneratePayoutLine(14, 3);
+                StartGameAnimation(b1, c2, d1);
             }
             else if ((v2 == x1) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(14, 3, 0, 2);
+                StartGameAnimation(c2, d1, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(14, 3, 0, 3);
+                StartGameAnimation(d1, e2, f1);
             }
         } //W Line
 
@@ -660,27 +958,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v3) && (u2 == x2) && (u2 == y3) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(15);
+                    StartGameAnimation(b2, c3, d2, e3, f2);
                 }
                 else if((u2 == v3) && (u2 == x2) && (u2 == y3))
                 {
                     PayCalculator.GeneratePayoutLine(15, 4);
+                    StartGameAnimation(b2, c3, d2, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(15, 4, 2);
+                    StartGameAnimation(c3, d2, e3, f2);
                 }
             }
             else if((u2 == v3) && (u2 == x2))
             {
                 PayCalculator.GeneratePayoutLine(15, 3);
+                StartGameAnimation(b2, c3, d2);
             }
             else if((v3 == x2) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(15, 3, 0, 2);
+                StartGameAnimation(c3, d2, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(15, 3, 0, 3);
+                StartGameAnimation(d2, e3, f2);
             }
         } //Reverse W Line
 
@@ -691,27 +995,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v2) && (u2 == x1) && (u2 == y2) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(16);
+                    StartGameAnimation(b2, c2, d1, e2, f2);
                 }
                 else if((u2 == v2) && (u2 == x1) && (u2 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(16, 4);
+                    StartGameAnimation(b2, c2, d1, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(16, 4, 2);
+                    StartGameAnimation(c2, d1, e2, f2);
                 }
             }
             else if((u2 == v2) && (u2 == x1))
             {
                 PayCalculator.GeneratePayoutLine(16, 3);
+                StartGameAnimation(b2, c2, d1);
             }
             else if((v2 == x1) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(16, 3, 0, 2);
+                StartGameAnimation(c2, d1, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(16, 3, 0, 3);
+                StartGameAnimation(d1, e2, f2);
             }
         } //Reverse Small T Line
 
@@ -722,27 +1032,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u2 == v2) && (u2 == x3) && (u2 == y2) && (u2 == z2))
                 {
                     PayCalculator.GeneratePayoutLine(17);
+                    StartGameAnimation(b2, c2, d3, e2, f2);
                 }
                 else if ((u2 == v2) && (u2 == x3) && (u2 == y2))
                 {
                     PayCalculator.GeneratePayoutLine(17, 4);
+                    StartGameAnimation(b2, c2, d3, e2);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(17, 4, 2);
+                    StartGameAnimation(c2, d3, e2, f2);
                 }
             }
             else if ((u2 == v2) && (u2 == x3)) 
             {
                 PayCalculator.GeneratePayoutLine(17, 3);
+                StartGameAnimation(b2, c2, d3);
             }
             else if ((v2 == x3) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(17, 3, 0, 2);
+                StartGameAnimation(c2, d3, e2);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(17, 3, 0, 3);
+                StartGameAnimation(d3, e2, f2);
             }
         } //Small T Line
 
@@ -753,27 +1069,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v1) && (u1 == x3) && (u1 == y1) && (u1 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(18);
+                    StartGameAnimation(b1, c1, d3, e1, f1);
                 }
                 else if ((u1 == v1) && (u1 == x3) && (u1 == y1))
                 {
                     PayCalculator.GeneratePayoutLine(18, 4);
+                    StartGameAnimation(b1, c1, d3, e1);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(18, 4, 2);
+                    StartGameAnimation(c1, d3, e1, f1);
                 }
             }
             else if ((u1 == v1) && (u1 == x3)) 
             {
                 PayCalculator.GeneratePayoutLine(18, 3);
+                StartGameAnimation(b1, c1, d3);
             }
             else if ((v1 == x3) && (v1 == y1))
             {
                 PayCalculator.GeneratePayoutLine(18, 3, 0, 2);
+                StartGameAnimation(c1, d3, e1);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(18, 3, 0, 3);
+                StartGameAnimation(d3, e1, f1);
             }
         } //T Line
 
@@ -784,27 +1106,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u3 == v3) && (u3 == x1) && (u3 == y3) && (u3 == z3))
                 {
                     PayCalculator.GeneratePayoutLine(19);
+                    StartGameAnimation(b3, c3, d1, e3, f3);
                 }
                 else if ((u3 == v3) && (u3 == x1) && (u3 == y3))
                 {
                     PayCalculator.GeneratePayoutLine(19, 4);
+                    StartGameAnimation(b3, c3, d1, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(19, 4, 2);
+                    StartGameAnimation(c3, d1, e3, f3);
                 }
             }
             else if ((u3 == v3) && (u3 == x1)) 
             {
                 PayCalculator.GeneratePayoutLine(19, 3);
+                StartGameAnimation(b3, c3, d1);
             }
             else if ((v3 == x1) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(19, 3, 0, 2);
+                StartGameAnimation(c3, d1, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(19, 3, 0, 3);
+                StartGameAnimation(d1, e3, f3);
             }
         } //Reverse T Line
 
@@ -815,27 +1143,33 @@ public class SlotBehaviour : MonoBehaviour
                 if ((u1 == v3) && (u1 == x3) && (u1 == y3) && (u1 == z1))
                 {
                     PayCalculator.GeneratePayoutLine(20);
+                    StartGameAnimation(b1, c3, d3, e3, f1);
                 }
                 else if((u1 == v3) && (u1 == x3) && (u1 == y3))
                 {
                     PayCalculator.GeneratePayoutLine(20, 4);
+                    StartGameAnimation(b1, c3, d3, e3);
                 }
                 else
                 {
                     PayCalculator.GeneratePayoutLine(20, 4, 2);
+                    StartGameAnimation(c3, d3, e3, f1);
                 }
             }
             else if((u1 == v3) && (u1 == x3))
             {
                 PayCalculator.GeneratePayoutLine(20, 3);
+                StartGameAnimation(b1, c3, d3);
             }
             else if((v3 == x3) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(20, 3, 0, 2);
+                StartGameAnimation(c3, d3, e3);
             }
             else
             {
                 PayCalculator.GeneratePayoutLine(20, 3, 0, 3);
+                StartGameAnimation(d3, e3, f1);
             }
         } //Smiley Line
     }

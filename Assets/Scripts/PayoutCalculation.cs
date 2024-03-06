@@ -92,64 +92,80 @@ public class PayoutCalculation : MonoBehaviour
         }
     }
 
+    internal void ResetLines()
+    {
+        foreach (Transform child in LineContainer)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     private void sub4Calculation(UILineRenderer MyLine, int sub4)
     {
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (sub4 == 1)
         {
-            var newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(5);
-            MyLine.Points = newpointlist.ToArray();
+            //var newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(5);
+            //MyLine.Points = newpointlist.ToArray();
         }
         else
         {
-            var newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
+            //var newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
         }
     }
 
     private void sub3Calculation(UILineRenderer MyLine, int sub3)
     {
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (sub3 == 1)
         {
-            var newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(4);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(4);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
+            //var newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(4);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(4);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
         }
         else if (sub3 == 2)
         {
-            var newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(3);
-            MyLine.Points = newpointlist.ToArray();
+            //var newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(3);
+            //MyLine.Points = newpointlist.ToArray();
         }
         else
         {
-            var newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
-            newpointlist = new List<Vector2>(MyLine.Points);
-            newpointlist.RemoveAt(0);
-            MyLine.Points = newpointlist.ToArray();
+            //var newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
+            //newpointlist = new List<Vector2>(MyLine.Points);
+            //newpointlist.RemoveAt(0);
+            //MyLine.Points = newpointlist.ToArray();
         }
     }
+
+    #region PayoutLine Functions
 
     private void MiddleLine(int min = 5,int sub4 = 1, int sub3 = 1)
     {
@@ -809,4 +825,5 @@ public class PayoutCalculation : MonoBehaviour
             sub3Calculation(MyLine, sub3);
         }
     }
+    #endregion
 }
