@@ -197,6 +197,7 @@ public class SlotBehaviour : MonoBehaviour
     #region PayoutLineCalculation
     private void CalculatePayoutLines(int a1, int a2, int a3, int a4, int a5)
     {
+        #region Initializations
         Sprite u1 = slot1_Image[a1].sprite;
         Sprite u2 = slot1_Image[a1 + 1].sprite;
         Sprite u3 = slot1_Image[a1 + 2].sprite;
@@ -216,10 +217,11 @@ public class SlotBehaviour : MonoBehaviour
         Sprite z1 = slot5_Image[a5].sprite;
         Sprite z2 = slot5_Image[a5 + 1].sprite;
         Sprite z3 = slot5_Image[a5 + 2].sprite;
+        #endregion
 
-        if ((u2 == v2) && (u2 == x2) || (u2 == x2) && (u2 == y2) || (u2 == y2) && (u2 == z2))
+        if ((u2 == v2) && (u2 == x2) || (v2 == x2) && (v2 == y2) || (x2 == y2) && (x2 == z2))
         {
-            if ((u2 == v2) && (u2 == x2) && (u2 == y2) || (u2 == x2) && (u2 == y2) && (u2 == z2))
+            if ((u2 == v2) && (u2 == x2) && (u2 == y2) || (v2 == x2) && (v2 == y2) && (v2 == z2))
             {
                 if ((u2 == v2) && (u2 == x2) && (u2 == y2) && (u2 == z2))
                 {
@@ -238,7 +240,7 @@ public class SlotBehaviour : MonoBehaviour
             {
                 PayCalculator.GeneratePayoutLine(1, 3);
             }
-            else if ((u2 == x2) && (u2 == y2))
+            else if ((v2 == x2) && (v2 == y2))
             {
                 PayCalculator.GeneratePayoutLine(1, 3, 0, 2);
             }
@@ -246,11 +248,11 @@ public class SlotBehaviour : MonoBehaviour
             {
                 PayCalculator.GeneratePayoutLine(1, 3, 0, 3);
             }
-        }
+        } //Middle Line
 
-        if ((u1 == v1) && (u1 == x1) || (u3 == x3) && (u3 == y3) || (u1 == y1) && (u1 == z1))
+        if ((u1 == v1) && (u1 == x1) || (v3 == x3) && (v3 == y3) || (x1 == y1) && (x1 == z1))
         {
-            if ((u1 == v1) && (u1 == x1) && (u1 == y1) || (u1 == x1) && (u1 == y1) && (u1 == z1))
+            if ((u1 == v1) && (u1 == x1) && (u1 == y1) || (v1 == x1) && (v1 == y1) && (v1 == z1))
             {
                 if ((u1 == v1) && (u1 == x1) && (u1 == y1) && (u1 == z1))
                 {
@@ -269,7 +271,7 @@ public class SlotBehaviour : MonoBehaviour
             {
                 PayCalculator.GeneratePayoutLine(2, 3);
             }
-            else if((u3 == x3) && (u3 == y3))
+            else if((v3 == x3) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(2, 3, 0, 2);
             }
@@ -277,11 +279,11 @@ public class SlotBehaviour : MonoBehaviour
             {
                 PayCalculator.GeneratePayoutLine(2, 3, 0, 3);
             }
-        }
+        } //Top Line
 
-        if ((u3 == v3) && (u3 == x3) || (u3 == x3) && (u3 == y3) || (u3 == y3) && (u3 == z3))
+        if ((u3 == v3) && (u3 == x3) || (v3 == x3) && (v3 == y3) || (x3 == y3) && (x3 == z3))
         {
-            if ((u3 == v3) && (u3 == x3) && (u3 == y3) || (u3 == x3) && (u3 == y3) && (u3 == z3))
+            if ((u3 == v3) && (u3 == x3) && (u3 == y3) || (v3 == x3) && (v3 == y3) && (v3 == z3))
             {
                 if ((u3 == v3) && (u3 == x3) && (u3 == y3) && (u3 == z3))
                 {
@@ -300,100 +302,542 @@ public class SlotBehaviour : MonoBehaviour
             {
                 PayCalculator.GeneratePayoutLine(3, 3);
             }
-            else if ((u2 == x2) && (u2 == y2))
+            else if ((v3 == x3) && (v3 == y3))
             {
                 PayCalculator.GeneratePayoutLine(3, 3, 0, 2);
             }
-            else if ((u3 == y3) && (u3 == z3))
+            else
             {
                 PayCalculator.GeneratePayoutLine(3, 3, 0, 3);
             }
-        }
+        } //Bottom Line
 
-        if ((u1 == v2) && (u1 == x3) && (u1 == y2) && (u1 == z1)) 
+        if ((u1 == v2) && (u1 == x3) || (v2 == x3) && (v2 == y2) || (x3 == y2) && (x3 == z1))
         {
-            PayCalculator.GeneratePayoutLine(4);
-        }
+            if ((u1 == v2) && (u1 == x3) && (u1 == y2) || (v2 == x3) && (v2 == y2) && (v2 == z1))
+            {
+                if ((u1 == v2) && (u1 == x3) && (u1 == y2) && (u1 == z1))
+                {
+                    PayCalculator.GeneratePayoutLine(4);
+                }
+                else if((u1 == v2) && (u1 == x3) && (u1 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(4, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(4, 4, 2);
+                }
+            }
+            else if((u1 == v2) && (u1 == x3))
+            {
+                PayCalculator.GeneratePayoutLine(4, 3);
+            }
+            else if ((v2 == x3) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(4, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(4, 3, 0, 3);
+            }
+        } //V Line
 
-        if ((u3 == v2) && (u3 == x1) && (u3 == y2) && (u3 == z3)) 
+        if ((u3 == v2) && (u3 == x1) || (v2 == x1) && (v2 == y2) || (x1 == y2) && (x1 == z3))
         {
-            PayCalculator.GeneratePayoutLine(5);
-        }
+            if ((u3 == v2) && (u3 == x1) && (u3 == y2) || (v2 == x1) && (v2 == y2) && (v2 == z3))
+            {
+                if ((u3 == v2) && (u3 == x1) && (u3 == y2) && (u3 == z3))
+                {
+                    PayCalculator.GeneratePayoutLine(5);
+                }
+                else if((u3 == v2) && (u3 == x1) && (u3 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(5, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(5, 4, 2);
+                }
+            }
+            else if((u3 == v2) && (u3 == x1))
+            {
+                PayCalculator.GeneratePayoutLine(5, 3);
+            }
+            else if((v2 == x1) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(5, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(5, 3, 0, 3);
+            }
+        } //Reverse V Line
 
-        if ((u2 == v1) && (u2 == x2) && (u2 == y1) && (u2 == z2)) 
+        if ((u2 == v1) && (u2 == x2) || (v1 == x2) && (v1 == y1) || (x2 == y1) && (x2 == z2))
         {
-            PayCalculator.GeneratePayoutLine(6);
-        }
+            if ((u2 == v1) && (u2 == x2) && (u2 == y1) || (v1 == x2) && (v1 == y1) && (v1 == z2))
+            {
+                if ((u2 == v1) && (u2 == x2) && (u2 == y1) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(6);
+                }
+                else if((u2 == v1) && (u2 == x2) && (u2 == y1))
+                {
+                    PayCalculator.GeneratePayoutLine(6, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(6, 4, 2);
+                }
+            }
+            else if((u2 == v1) && (u2 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(6, 3);
+            }
+            else if ((v1 == x2) && (v1 == y1))
+            {
+                PayCalculator.GeneratePayoutLine(6, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(6, 3, 0, 3);
+            }
+        } //ZigZag Line
 
-        if ((u2 == v3) && (u2 == x2) && (u2 == y3) && (u2 == z2)) 
+        if ((u2 == v3) && (u2 == x2) || (v3 == x2) && (v3 == y3) || (x2 == y3) && (x2 == z2))
         {
-            PayCalculator.GeneratePayoutLine(7);
-        }
+            if ((u2 == v3) && (u2 == x2) && (u2 == y3) || (v3 == x2) && (v3 == y3) && (v3 == z2))
+            {
+                if ((u2 == v3) && (u2 == x2) && (u2 == y3) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(7);
+                }
+                else if((u2 == v3) && (u2 == x2) && (u2 == y3) || (u2 == x2) && (u2 == y3) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(7, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(7, 4, 2);
+                }
+            }
+            else if((u2 == v3) && (u2 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(7, 3);
+            }
+            else if ((v3 == x2) && (v3 == y3))
+            {
+                PayCalculator.GeneratePayoutLine(7, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(7, 3, 0, 3);
+            }
+        } //Reverse ZigZag Line
 
-        if ((u1 == v1) && (u1 == x2) && (u1 == y3) && (u1 == z3)) 
+        if ((u1 == v1) && (u1 == x2) || (v1 == x2) && (v1 == y3) || (x2 == y3) && (x2 == z3))
         {
-            PayCalculator.GeneratePayoutLine(8);
-        }
+            if ((u1 == v1) && (u1 == x2) && (u1 == y3) || (v1 == x2) && (v1 == y3) && (v1 == z3))
+            {
+                if ((u1 == v1) && (u1 == x2) && (u1 == y3) && (u1 == z3))
+                {
+                    PayCalculator.GeneratePayoutLine(8);
+                }
+                else if((u1 == v1) && (u1 == x2) && (u1 == y3))
+                {
+                    PayCalculator.GeneratePayoutLine(8, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(8, 4, 2);
+                }
+            }
+            else if((u1 == v1) && (u1 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(8, 3);
+            }
+            else if((v1 == x2) && (v1 == y3))
+            {
+                PayCalculator.GeneratePayoutLine(8, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(8, 3, 0, 3);
+            }
+        } //Z Line
 
-        if ((u3 == v3) && (u3 == x2) && (u3 == y1) && (u3 == z1)) 
+        if ((u3 == v3) && (u3 == x2) || (v3 == x2) && (v3 == y1) || (x2 == y1) && (x2 == z1))
         {
-            PayCalculator.GeneratePayoutLine(9);
-        }
+            if ((u3 == v3) && (u3 == x2) && (u3 == y1) || (v3 == x2) && (v3 == y1) && (v3 == z1))
+            {
+                if ((u3 == v3) && (u3 == x2) && (u3 == y1) && (u3 == z1))
+                {
+                    PayCalculator.GeneratePayoutLine(9);
+                }
+                else if((u3 == v3) && (u3 == x2) && (u3 == y1))
+                {
+                    PayCalculator.GeneratePayoutLine(9, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(9, 4, 2);
+                }
+            }
+            else if((u3 == v3) && (u3 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(9, 3);
+            }
+            else if((v3 == x2) && (v3 == y1))
+            {
+                PayCalculator.GeneratePayoutLine(9, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(9, 3, 0, 3);
+            }
+        } //Reverse Z Line
 
-        if ((u2 == v3) && (u2 == x2) && (u2 == y1) && (u2 == z2)) 
+        if ((u2 == v3) && (u2 == x2) || (v3 == x2) && (v3 == y1) || (x2 == y1) && (x2 == z2))
         {
-            PayCalculator.GeneratePayoutLine(10);
-        }
+            if ((u2 == v3) && (u2 == x2) && (u2 == y1) || (v3 == x2) && (v3 == y1) && (v3 == z2))
+            {
+                if ((u2 == v3) && (u2 == x2) && (u2 == y1) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(10);
+                }
+                else if((u2 == v3) && (u2 == x2) && (u2 == y1))
+                {
+                    PayCalculator.GeneratePayoutLine(10, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(10, 4, 2);
+                }
+            }
+            else if((u2 == v3) && (u2 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(10, 3);
+            }
+            else if((v3 == x2) && (v3 == y1))
+            {
+                PayCalculator.GeneratePayoutLine(10, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(10, 3, 0 , 3);
+            }
+        } //Uneven Line
 
-        if ((u2 == v1) && (u2 == x2) && (u2 == y3) && (u2 == z2)) 
+        if ((u2 == v1) && (u2 == x2) || (v1 == x2) && (v1 == y3) || (x2 == y3) && (x2 == z2))
         {
-            PayCalculator.GeneratePayoutLine(11);
-        }
+            if ((u2 == v1) && (u2 == x2) && (u2 == y3) || (v1 == x2) && (v1 == y3) && (v1 == z2))
+            {
+                if ((u2 == v1) && (u2 == x2) && (u2 == y3) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(11);
+                }
+                else if((u2 == v1) && (u2 == x2) && (u2 == y3))
+                {
+                    PayCalculator.GeneratePayoutLine(11, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(11, 4, 2);
+                }
+            }
+            else if((u2 == v1) && (u2 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(11, 3);
+            }
+            else if((v1 == x2) && (v1 == y3))
+            {
+                PayCalculator.GeneratePayoutLine(11, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(11, 3, 0, 3);
+            }
+        } //Reverse Uneven Line
 
-        if ((u1 == v2) && (u1 == x2) && (u1 == y2) && (u1 == z1)) 
+        if ((u1 == v2) && (u1 == x2) || (v2 == x2) && (v2 == y2) || (x2 == y2) && (x2 == z1))
         {
-            PayCalculator.GeneratePayoutLine(12);
-        }
+            if ((u1 == v2) && (u1 == x2) && (u1 == y2) || (v2 == x2) && (v2 == y2) && (v2 == z1))
+            {
+                if ((u1 == v2) && (u1 == x2) && (u1 == y2) && (u1 == z1))
+                {
+                    PayCalculator.GeneratePayoutLine(12);
+                }
+                else if((u1 == v2) && (u1 == x2) && (u1 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(12, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(12, 4, 2);
+                }
+            }
+            else if((u1 == v2) && (u1 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(12, 3);
+            }
+            else if((v2 == x2) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(12, 3, 0 ,2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(12, 3, 0, 3);
+            }
+        } //U Line
 
-        if ((u3 == v2) && (u3 == x2) && (u3 == y2) && (u3 == z3)) 
+        if ((u3 == v2) && (u3 == x2) || (v2 == x2) && (v2 == y2) || (x2 == y2) && (x2 == z3))
         {
-            PayCalculator.GeneratePayoutLine(13);
-        }
+            if ((u3 == v2) && (u3 == x2) && (u3 == y2) || (v2 == x2) && (v2 == y2) && (v2 == z3))
+            {
+                if ((u3 == v2) && (u3 == x2) && (u3 == y2) && (u3 == z3))
+                {
+                    PayCalculator.GeneratePayoutLine(13);
+                }
+                else if((u3 == v2) && (u3 == x2) && (u3 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(13, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(13, 4, 2);
+                }
+            }
+            else if((u3 == v2) && (u3 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(13, 3);
+            }
+            else if((v2 == x2) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(13, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(13, 3, 0, 3);
+            }
+        } //Reverse U Line
 
-        if ((u1 == v2) && (u1 == x1) && (u1 == y2) && (u1 == z1)) 
+        if ((u1 == v2) && (u1 == x1) || (v2 == x1) && (v2 == y2) || (x1 == y2) && (x1 == z1))
         {
-            PayCalculator.GeneratePayoutLine(14);
-        }
+            if ((u1 == v2) && (u1 == x1) && (u1 == y2) || (v2 == x1) && (v2 == y2) && (v2 == z1))
+            {
+                if ((u1 == v2) && (u1 == x1) && (u1 == y2) && (u1 == z1))
+                {
+                    PayCalculator.GeneratePayoutLine(14);
+                }
+                else if((u1 == v2) && (u1 == x1) && (u1 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(14, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(14, 4, 2);
+                }
+            }
+            else if((u1 == v2) && (u1 == x1))
+            {
+                PayCalculator.GeneratePayoutLine(14, 3);
+            }
+            else if ((v2 == x1) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(14, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(14, 3, 0, 3);
+            }
+        } //W Line
 
-        if ((u2 == v3) && (u2 == x2) && (u2 == y3) && (u2 == z2)) 
+        if ((u2 == v3) && (u2 == x2) || (v3 == x2) && (v3 == y3) || (x2 == y3) && (x2 == z2))
         {
-            PayCalculator.GeneratePayoutLine(15);
-        }
+            if ((u2 == v3) && (u2 == x2) && (u2 == y3) || (v3 == x2) && (v3 == y3) && (v3 == z2))
+            {
+                if ((u2 == v3) && (u2 == x2) && (u2 == y3) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(15);
+                }
+                else if((u2 == v3) && (u2 == x2) && (u2 == y3))
+                {
+                    PayCalculator.GeneratePayoutLine(15, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(15, 4, 2);
+                }
+            }
+            else if((u2 == v3) && (u2 == x2))
+            {
+                PayCalculator.GeneratePayoutLine(15, 3);
+            }
+            else if((v3 == x2) && (v3 == y3))
+            {
+                PayCalculator.GeneratePayoutLine(15, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(15, 3, 0, 3);
+            }
+        } //Reverse W Line
 
-        if ((u2 == v2) && (u2 == x1) && (u2 == y2) && (u2 == z2)) 
+        if ((u2 == v2) && (u2 == x1) || (v2 == x1) && (v2 == y2) || (x1 == y2) && (x1 == z2))
         {
-            PayCalculator.GeneratePayoutLine(16);
-        }
+            if ((u2 == v2) && (u2 == x1) && (u2 == y2) || (v2 == x1) && (v2 == y2) && (v2 == z2))
+            {
+                if ((u2 == v2) && (u2 == x1) && (u2 == y2) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(16);
+                }
+                else if((u2 == v2) && (u2 == x1) && (u2 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(16, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(16, 4, 2);
+                }
+            }
+            else if((u2 == v2) && (u2 == x1))
+            {
+                PayCalculator.GeneratePayoutLine(16, 3);
+            }
+            else if((v2 == x1) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(16, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(16, 3, 0, 3);
+            }
+        } //Reverse Small T Line
 
-        if ((u2 == v2) && (u2 == x3) && (u2 == y2) && (u2 == z2)) 
+        if ((u2 == v2) && (u2 == x3) || (v2 == x3) && (v2 == y2) || (x3 == y2) && (x3 == z2))
         {
-            PayCalculator.GeneratePayoutLine(17);
-        }
+            if ((u2 == v2) && (u2 == x3) && (u2 == y2) || (v2 == x3) && (v2 == y2) && (v2 == z2))
+            {
+                if ((u2 == v2) && (u2 == x3) && (u2 == y2) && (u2 == z2))
+                {
+                    PayCalculator.GeneratePayoutLine(17);
+                }
+                else if ((u2 == v2) && (u2 == x3) && (u2 == y2))
+                {
+                    PayCalculator.GeneratePayoutLine(17, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(17, 4, 2);
+                }
+            }
+            else if ((u2 == v2) && (u2 == x3)) 
+            {
+                PayCalculator.GeneratePayoutLine(17, 3);
+            }
+            else if ((v2 == x3) && (v2 == y2))
+            {
+                PayCalculator.GeneratePayoutLine(17, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(17, 3, 0, 3);
+            }
+        } //Small T Line
 
-        if ((u1 == v1) && (u1 == x3) && (u1 == y1) && (u1 == z1))
+        if ((u1 == v1) && (u1 == x3) || (v1 == x3) && (v1 == y1) || (x3 == y1) && (x3 == z1))
         {
-            PayCalculator.GeneratePayoutLine(18);
-        }
+            if ((u1 == v1) && (u1 == x3) && (u1 == y1) || (v1 == x3) && (v1 == y1) && (v1 == z1))
+            {
+                if ((u1 == v1) && (u1 == x3) && (u1 == y1) && (u1 == z1))
+                {
+                    PayCalculator.GeneratePayoutLine(18);
+                }
+                else if ((u1 == v1) && (u1 == x3) && (u1 == y1))
+                {
+                    PayCalculator.GeneratePayoutLine(18, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(18, 4, 2);
+                }
+            }
+            else if ((u1 == v1) && (u1 == x3)) 
+            {
+                PayCalculator.GeneratePayoutLine(18, 3);
+            }
+            else if ((v1 == x3) && (v1 == y1))
+            {
+                PayCalculator.GeneratePayoutLine(18, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(18, 3, 0, 3);
+            }
+        } //T Line
 
-        if ((u3 == v3) && (u3 == x1) && (u3 == y3) && (u3 == z3)) 
+        if ((u3 == v3) && (u3 == x1) || (v3 == x1) && (v3 == y3) || (x1 == y3) && (x1 == z3))
         {
-            PayCalculator.GeneratePayoutLine(19);
-        }
+            if ((u3 == v3) && (u3 == x1) && (u3 == y3) || (v3 == x1) && (v3 == y3) && (v3 == z3))
+            {
+                if ((u3 == v3) && (u3 == x1) && (u3 == y3) && (u3 == z3))
+                {
+                    PayCalculator.GeneratePayoutLine(19);
+                }
+                else if ((u3 == v3) && (u3 == x1) && (u3 == y3))
+                {
+                    PayCalculator.GeneratePayoutLine(19, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(19, 4, 2);
+                }
+            }
+            else if ((u3 == v3) && (u3 == x1)) 
+            {
+                PayCalculator.GeneratePayoutLine(19, 3);
+            }
+            else if ((v3 == x1) && (v3 == y3))
+            {
+                PayCalculator.GeneratePayoutLine(19, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(19, 3, 0, 3);
+            }
+        } //Reverse T Line
 
-        if ((u1 == v3) && (u1 == x3) && (u1 == y3) && (u1 == z1)) 
+        if ((u1 == v3) && (u1 == x3) || (v3 == x3) && (v3 == y3) || (x3 == y3) && (x3 == z1))
         {
-            PayCalculator.GeneratePayoutLine(20);
-        }
+            if ((u1 == v3) && (u1 == x3) && (u1 == y3) || (v3 == x3) && (v3 == y3) && (v3 == z1))
+            {
+                if ((u1 == v3) && (u1 == x3) && (u1 == y3) && (u1 == z1))
+                {
+                    PayCalculator.GeneratePayoutLine(20);
+                }
+                else if((u1 == v3) && (u1 == x3) && (u1 == y3))
+                {
+                    PayCalculator.GeneratePayoutLine(20, 4);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(20, 4, 2);
+                }
+            }
+            else if((u1 == v3) && (u1 == x3))
+            {
+                PayCalculator.GeneratePayoutLine(20, 3);
+            }
+            else if((v3 == x3) && (v3 == y3))
+            {
+                PayCalculator.GeneratePayoutLine(20, 3, 0, 2);
+            }
+            else
+            {
+                PayCalculator.GeneratePayoutLine(20, 3, 0, 3);
+            }
+        } //Smiley Line
     }
     #endregion
 

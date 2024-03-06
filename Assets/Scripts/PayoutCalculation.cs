@@ -22,7 +22,7 @@ public class PayoutCalculation : MonoBehaviour
 
     private void Start()
     {
-
+        
     }
 
     internal void GeneratePayoutLine(int possibilities,int min = 5, int sub4 = 1, int sub3 = 1)
