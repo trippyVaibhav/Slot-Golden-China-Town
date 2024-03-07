@@ -512,9 +512,9 @@ RectTransform:
   - {fileID: 1841322046}
   m_Father: {fileID: 1485219722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -512}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1379}
   m_SizeDelta: {x: 316, y: 333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &567733206
@@ -1577,6 +1577,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 07ad64ef921404e4f8dbfdabcd585dcb, type: 3}
   - {fileID: 21300000, guid: fee204fba838649b5b0b90ee2cf2fc7d, type: 3}
   - {fileID: 21300000, guid: f1652268ca2034fa6889e5bfc8c12b33, type: 3}
+  WildSprite: {fileID: 21300000, guid: f1652268ca2034fa6889e5bfc8c12b33, type: 3}
   slot1_Image: []
   slot2_Image: []
   slot3_Image: []
@@ -1594,7 +1595,7 @@ MonoBehaviour:
   Slot_5_Transform: {fileID: 724812883}
   SlotStart_Button: {fileID: 567733206}
   A_Sprite:
-  - {fileID: 21300000, guid: 105cdcc7d482744f2a610d18d162e436, type: 3}
+  - {fileID: 21300000, guid: 4102e7bb9adbd4f5d819ad69bc143010, type: 3}
   - {fileID: 21300000, guid: 7e019651ef66d433c94f2880790ef16f, type: 3}
   - {fileID: 21300000, guid: f264a79298e864dfdbef152253218700, type: 3}
   - {fileID: 21300000, guid: 7c4c37ce35af74500838b0c4bbf355c6, type: 3}
@@ -1619,7 +1620,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2d38cf6bf0e8c44c0b7115efae07879a, type: 3}
   - {fileID: 21300000, guid: 5ccffe51e60474520892422d8d885882, type: 3}
   Bonus_Sprite:
-  - {fileID: 21300000, guid: 59507fbf1be7741dca31ee864e6affb5, type: 3}
+  - {fileID: 21300000, guid: 84571af5a7d154851800a9362fb81e27, type: 3}
   - {fileID: 21300000, guid: 4f3811da9d3f741b3a69d6b8df3d42df, type: 3}
   - {fileID: 21300000, guid: bb23a1c52748742a191a7daad262c0f5, type: 3}
   - {fileID: 21300000, guid: 64ad742d5cfbf41ad8965813e4ec4a36, type: 3}
@@ -1668,7 +1669,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e863ce746ea4247e1a711a7022f443c2, type: 3}
   - {fileID: 21300000, guid: 29de386f148b64b9a87b85117246a8ae, type: 3}
   Coins_Sprite:
-  - {fileID: 21300000, guid: 3ac4292aa435e420fb06681da2e5ec35, type: 3}
+  - {fileID: 21300000, guid: 2bab939551cf443099803c63ee768900, type: 3}
   - {fileID: 21300000, guid: 30b3b304b27f941a2afda2c3579c2bae, type: 3}
   - {fileID: 21300000, guid: 661bd78c8f25d43708dc489f27d069a9, type: 3}
   - {fileID: 21300000, guid: 28fed9f9099c24ffdaada50a61a8104a, type: 3}
@@ -1693,7 +1694,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d6b7f22ec631a41109b3c85a260ffa1a, type: 3}
   - {fileID: 21300000, guid: 2f327cd45a434466ea99380802e07e7f, type: 3}
   Fan_Sprite:
-  - {fileID: 21300000, guid: e2c8528ab824c471ba0c855ac9290a7f, type: 3}
+  - {fileID: 21300000, guid: 5c6feff35ea7144ffa8ea8adfb5e900c, type: 3}
   - {fileID: 21300000, guid: 1044943e36a29458aa4b62fbc7399a58, type: 3}
   - {fileID: 21300000, guid: b284e36f6adba4de9b3ccbf72ed7d506, type: 3}
   - {fileID: 21300000, guid: 3aea9cc11acec4101a9ea3cb66082307, type: 3}
@@ -1718,7 +1719,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a923cb10b748749d8ad182f9b138a7ac, type: 3}
   - {fileID: 21300000, guid: b6c59db2e84254773b3b64dc445136a7, type: 3}
   FreeSpin_Sprite:
-  - {fileID: 21300000, guid: 75ceb588b210e4f5e8cfe5b89b3caa01, type: 3}
+  - {fileID: 21300000, guid: 3f9cea1c7bb564c319be50828b45999c, type: 3}
   - {fileID: 21300000, guid: c6cf3734e76e940c3b837b02d3e21946, type: 3}
   - {fileID: 21300000, guid: 3d014531df20e4b7da2f251fadc236ac, type: 3}
   - {fileID: 21300000, guid: 4a740046fd3ae44a8b1877e6396b44bb, type: 3}
@@ -1767,7 +1768,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b8d47066d52374f2e96697b7c60fbc22, type: 3}
   - {fileID: 21300000, guid: 72f3a65328b7245408aaf97221f8796f, type: 3}
   J_Sprite:
-  - {fileID: 21300000, guid: 53e65057fcab5467e93bab0d398a5a51, type: 3}
+  - {fileID: 21300000, guid: 96ac924c0492945e1aef26cb402a1a33, type: 3}
   - {fileID: 21300000, guid: 81f6e1afc85ef434092a99de5b76c805, type: 3}
   - {fileID: 21300000, guid: 2ead720e7bb3d48d7bfc98966a2c45ae, type: 3}
   - {fileID: 21300000, guid: ad4d01f3eccb4445ca67ca4106625fd5, type: 3}
@@ -1792,7 +1793,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cbcebe89439e240c691f7eefabbdd366, type: 3}
   - {fileID: 21300000, guid: 25ae7d65b20ca4f1ba4df843d84d2e60, type: 3}
   JackPot_Sprite:
-  - {fileID: 21300000, guid: fe5232e0cf75545f79f578fad2f7af33, type: 3}
+  - {fileID: 21300000, guid: da851d569fead46a89fe650575ea10d4, type: 3}
   - {fileID: 21300000, guid: 7c2f03cbf2951471f99ffde8b0aed336, type: 3}
   - {fileID: 21300000, guid: 53072109720614831b4ba87b6659e06f, type: 3}
   - {fileID: 21300000, guid: 214ed0c33027e4b8d8e652d6602d6d2a, type: 3}
@@ -1841,7 +1842,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3d5c26c84f02349aa80c74d3d7e1e42a, type: 3}
   - {fileID: 21300000, guid: 982ba5bea88014b0b8b48e07ab2f86b8, type: 3}
   K_Sprite:
-  - {fileID: 21300000, guid: 064ec480b1d8e45cdba8b8cf61ee0674, type: 3}
+  - {fileID: 21300000, guid: 497163144dc9044148c2a151ba76d53d, type: 3}
   - {fileID: 21300000, guid: 0f79cbf676f1c48f7a1f5cc88b83bdf0, type: 3}
   - {fileID: 21300000, guid: cacbff11bf89444b695c78d43f41259a, type: 3}
   - {fileID: 21300000, guid: e2ff0db84487c49d5b322ca7685df78f, type: 3}
@@ -1866,7 +1867,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 47e80f13099a046199c07a69180902e4, type: 3}
   - {fileID: 21300000, guid: 636ab32d8d3144182bd8084001656a06, type: 3}
   Q_Sprite:
-  - {fileID: 21300000, guid: c812c8444e46946c182d2777be75e222, type: 3}
+  - {fileID: 21300000, guid: 513ba02701e604224bcd6a3f95796a7f, type: 3}
   - {fileID: 21300000, guid: 4da899db2e3764533846b6c8c697f836, type: 3}
   - {fileID: 21300000, guid: 2fec068629472486d8d7997b9943adcc, type: 3}
   - {fileID: 21300000, guid: 83b067066e6ed414393317b0a7af41d7, type: 3}
@@ -1891,7 +1892,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ef4f85198684645169c0781e21db94c7, type: 3}
   - {fileID: 21300000, guid: bbd27cc1a79834d9e83c007b730e6d7e, type: 3}
   Scatter_Sprite:
-  - {fileID: 21300000, guid: 9d59e4e46a23e4cfda89b09a9708f995, type: 3}
+  - {fileID: 21300000, guid: e1ed1a275bb194af29104e4f7182636e, type: 3}
   - {fileID: 21300000, guid: cee88ab5aaec9407896ae8b73e19f2cd, type: 3}
   - {fileID: 21300000, guid: 263f362502810438a93eaeeab55b7d3d, type: 3}
   - {fileID: 21300000, guid: e0a58d91344c9494694a261e9a09405c, type: 3}
@@ -1940,7 +1941,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1cf5545e131134f4ab111d206e4784f9, type: 3}
   - {fileID: 21300000, guid: f480ca6358b2b43cf84b78876fa7e02c, type: 3}
   Scroll_Sprite:
-  - {fileID: 21300000, guid: 57a0e0d66d2f341cabdc73f9d7aa1ab7, type: 3}
+  - {fileID: 21300000, guid: f6554bedaf33546a38e9b579943bc430, type: 3}
   - {fileID: 21300000, guid: 5f16cfd79a7104506921d25f3a739099, type: 3}
   - {fileID: 21300000, guid: 5cbc0b278c07b4f0ba7a044f405701c7, type: 3}
   - {fileID: 21300000, guid: ca90d9dd941014946b4b3506fc0348e7, type: 3}
@@ -1965,7 +1966,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6e8cb631bb5fe49cf8b6db77ddefb190, type: 3}
   - {fileID: 21300000, guid: 1a25e18d0125f4b408797e4c97bd138b, type: 3}
   Sycee_Sprite:
-  - {fileID: 21300000, guid: cf498f049990d433c95b9ef89391a7d3, type: 3}
+  - {fileID: 21300000, guid: 07ad64ef921404e4f8dbfdabcd585dcb, type: 3}
   - {fileID: 21300000, guid: e0063c17a8fc14797aef68d3158a5473, type: 3}
   - {fileID: 21300000, guid: c565e239bfda74f1a8f2ba01390407ea, type: 3}
   - {fileID: 21300000, guid: 1c6ab124e830a4e19b92b5025d0897dd, type: 3}
@@ -1990,7 +1991,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 00895b508ba9b40babf599c2dfabe75e, type: 3}
   - {fileID: 21300000, guid: be680eb94a0a24d78bbb61f89a5c5f60, type: 3}
   TeaPot_Sprite:
-  - {fileID: 21300000, guid: 6213cecf34f374c078301af480439124, type: 3}
+  - {fileID: 21300000, guid: fee204fba838649b5b0b90ee2cf2fc7d, type: 3}
   - {fileID: 21300000, guid: c73c36b28009141bf80d1ed8e44ab6dd, type: 3}
   - {fileID: 21300000, guid: ca956d040ef244c438f4b92fcffc6f1a, type: 3}
   - {fileID: 21300000, guid: b51ed413c1c7a419eb2856951b8af77f, type: 3}
@@ -2015,7 +2016,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ea6cffa84409b431f951161d9f425794, type: 3}
   - {fileID: 21300000, guid: 012ab28703d4b44aab43978ee822b7f2, type: 3}
   Ten_Sprite:
-  - {fileID: 21300000, guid: d9bcfa011f66946e3b7439d20a8c4732, type: 3}
+  - {fileID: 21300000, guid: a977c14e8cfab41f68caaafb5109e3c6, type: 3}
   - {fileID: 21300000, guid: d00466bbb49e4498190016a67a095c0b, type: 3}
   - {fileID: 21300000, guid: 496d66cf1ba354380bc026e753462ab1, type: 3}
   - {fileID: 21300000, guid: ad9aa724904fe4c058b2d670181df6db, type: 3}
@@ -2040,7 +2041,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7d01b49c4408b4f24b7df2ae8557dfba, type: 3}
   - {fileID: 21300000, guid: 4ad8a0970852a459a9537fff703f8faa, type: 3}
   Wild_Sprite:
-  - {fileID: 21300000, guid: ef5dd474018a6466aa7072bede20b4e7, type: 3}
+  - {fileID: 21300000, guid: f1652268ca2034fa6889e5bfc8c12b33, type: 3}
   - {fileID: 21300000, guid: 9d3f3b2bf798448bab2212a3e7dbbde7, type: 3}
   - {fileID: 21300000, guid: 0a794ad586c614774ac9476a99a00730, type: 3}
   - {fileID: 21300000, guid: c0ecb91f6549f4a7c99cf004a992148f, type: 3}
@@ -2093,11 +2094,11 @@ MonoBehaviour:
   PayCalculator: {fileID: 963807277}
   TempList: []
   isWildObj: 1
-  dummynum1: 14
+  dummynum1: 3
   dummynum2: 4
-  dummynum3: 13
-  dummynum4: 4
-  dummynum5: 12
+  dummynum3: 3
+  dummynum4: 10
+  dummynum5: 6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

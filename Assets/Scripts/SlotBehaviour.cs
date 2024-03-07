@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using System.Linq;
 
 public class SlotBehaviour : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class SlotBehaviour : MonoBehaviour
     [Header("Sprites")]
     [SerializeField]
     private Sprite[] myImages;
+    [SerializeField]
+    private Sprite WildSprite;
 
     [Header("Slot Images")]
     [SerializeField]
@@ -129,6 +132,14 @@ public class SlotBehaviour : MonoBehaviour
         if (SlotStart_Button) SlotStart_Button.onClick.AddListener(StartSlots);
         numberOfSlots = 5;
         PopulateInitalSlots(numberOfSlots);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && SlotStart_Button.interactable)
+        {
+            StartSlots();
+        }
     }
 
     private void PopulateInitalSlots(int number)
@@ -282,11 +293,11 @@ public class SlotBehaviour : MonoBehaviour
     private void StartSlots()
     {
         if (SlotStart_Button) SlotStart_Button.interactable = false;
-        dummynum1 = Random.Range(3, 17);
-        dummynum2 = Random.Range(3, 17);
-        dummynum3 = Random.Range(3, 17);
-        dummynum4 = Random.Range(3, 17);
-        dummynum5 = Random.Range(3, 17);
+        //dummynum1 = Random.Range(3, 17);
+        //dummynum2 = Random.Range(3, 17);
+        //dummynum3 = Random.Range(3, 17);
+        //dummynum4 = Random.Range(3, 17);
+        //dummynum5 = Random.Range(3, 17);
         if (TempList.Count > 0) 
         {
             StopGameAnimation();
@@ -399,8 +410,18 @@ public class SlotBehaviour : MonoBehaviour
         TempList.TrimExcess();
     }
 
-    private void CheckPayoutLine(Sprite u, Sprite v, Sprite x, Sprite y, Sprite z, GameObject b, GameObject c, GameObject d, GameObject e, GameObject f, int LineNum,  Sprite w = null)
+    private void CheckPayoutLine(Sprite u, Sprite v, Sprite x, Sprite y, Sprite z, GameObject b, GameObject c, GameObject d, GameObject e, GameObject f, int LineNum, Sprite w = null, bool debugval = false)
     {
+        int nval = 0;
+        List<Sprite> temp_arr = new List<Sprite> { u, v, x, y, z };
+        nval = temp_arr.Count - temp_arr.Distinct().Count();
+        if (debugval)
+        {
+            Debug.Log("nval value is " + nval);
+            Debug.Log("Distinct value is " + temp_arr.Distinct().Count());
+            Debug.Log("nval value is " + nval);
+        }
+        temp_arr.Clear();
         if (w == null)
         {
             if ((u == v) && (u == x) || (v == x) && (v == y) || (x == y) && (x == z))
@@ -442,43 +463,57 @@ public class SlotBehaviour : MonoBehaviour
         }
         else
         {
-            if ((u == v) && (u == x) || (v == x) && (v == y) || (x == y) && (x == z))
+            if (nval == 2)
             {
-                if ((u == v) && (u == x) && (u == y) || (v == x) && (v == y) && (v == z))
+                if (u == w && v == w && x == y || x == w && y == w && u == v || u == w && x == w && y == v || u == w && y == w && v == x || v == w && x == w && u == y || v == w && y == w && u == x)
                 {
-                    if (((u == v) && (u == x) && (u == y) && (u == z)) || u == w || z == w)
-                    {
-                        PayCalculator.GeneratePayoutLine(LineNum);
-                        StartGameAnimation(b, c, d, e, f);
-                    }
-                    else if ((u == v) && (u == x) && (u == y))
-                    {
-                        PayCalculator.GeneratePayoutLine(LineNum, 4);
-                        StartGameAnimation(b, d, e, f);
-                    }
-                    else
-                    {
-                        PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
-                        StartGameAnimation(c, c, d, e);
-                    }
+                    PayCalculator.GeneratePayoutLine(LineNum, 4);
+                    StartGameAnimation(b, c, d, e);
                 }
-                else if (u == w && v == w || u == w && z == w || y == w && z == w)
+                else if (z == w && v == w && x == y || x == w && y == w && z == v || z == w && x == w && y == v || z == w && y == w && v == x || v == w && x == w && z == y || v == w && y == w && z == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
+                    StartGameAnimation(c, d, e, f);
+                }
+                else if (u == v && x == w || u == w && v == x || v == w && u == x)                                                                                                            
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3);
+                    StartGameAnimation(b, c, d);
+                }
+                else if (v == x && y == w || v == w && x == y || x == w && v == y)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
+                    StartGameAnimation(c, d, e);
+                }
+                else if (x == y && z == w || x == w && y == z || y == w && z == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
+                    StartGameAnimation(d, e, f);
+                }
+            }
+            else if(nval == 3)
+            {
+                if (u == w && v == w || u == w && z == w || y == w && z == w || x == w && z == w || x == w && y == w || v == w && z == w || v == w && y == w || v == w && x == w || u == w && y == w || u == w && x == w)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum);
                     StartGameAnimation(b, c, d, e, f);
                 }
-                else if (u == w)
+                else if (u == w && v == x && v == y || v == w && u == x && u == y || x == w && u == v && u == y || y == w && u == v && u == x)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum, 4);
-                    StartGameAnimation(b, d, e, f);
+                    StartGameAnimation(b, c, d, e);
                 }
-                else if (z == w)
+                else if (z == w && v == x && v == y || v == w && z == x && z == y || x == w && z == v && z == y || y == w && z == v && z == x)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
-                    StartGameAnimation(c, c, d, e);
+                    StartGameAnimation(c, d, e, f);
                 }
                 else if ((u == v) && (u == x))
                 {
+                    if(debugval)
+                    {
+                        Debug.Log("run this");
+                    }
                     PayCalculator.GeneratePayoutLine(LineNum, 3);
                     StartGameAnimation(b, c, d);
                 }
@@ -487,26 +522,29 @@ public class SlotBehaviour : MonoBehaviour
                     PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
                     StartGameAnimation(c, d, e);
                 }
-                else
+                else if (x == y && x == z) 
                 {
                     PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
                     StartGameAnimation(d, e, f);
                 }
             }
-            else if (u == v && x == w || u == w && v == x || v == w && u == x)
+            else if(nval == 4)
             {
-                PayCalculator.GeneratePayoutLine(LineNum, 3);
-                StartGameAnimation(b, c, d);
-            }
-            else if (v == x && y == w || v == w && x == y || x == w && v == y)
-            {
-                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
-                StartGameAnimation(c, d, e);
-            }
-            else if (x == y && z == w || x == w && y == z || y == w && z == x)
-            {
-                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
-                StartGameAnimation(d, e, f);
+                if (u == w || z == w || v == w || x == w || y == w) 
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum);
+                    StartGameAnimation(b, c, d, e, f);
+                }
+                else if ((u == v) && (u == x) && (u == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4);
+                    StartGameAnimation(b, c, d, e);
+                }
+                else if((z == v) && (z == x) && (z == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
+                    StartGameAnimation(c, d, e, f);
+                }
             }
         }
     }
@@ -537,11 +575,13 @@ public class SlotBehaviour : MonoBehaviour
 
         Sprite w = null;
 
-        if(isWildObj)
+        if (isWildObj)
         {
-            w = myImages[myImages.Length - 1];
+            if (WildSprite)
+            {
+                w = WildSprite;
+            }
         }
-
 
         GameObject b1 = slot1_Image[a1].gameObject;
         GameObject b2 = slot1_Image[a1 + 1].gameObject;
@@ -583,7 +623,7 @@ public class SlotBehaviour : MonoBehaviour
         CheckPayoutLine(u2, v1, x2, y1, z2, b2, c1, d2, e1, f2, LineNumber, w); //ZigZag Line
         LineNumber++;
 
-        CheckPayoutLine(u2, v3, x2, y3, z2, b2, c3, d2, e3, f2, LineNumber, w); //Reverse ZigZag Line
+        CheckPayoutLine(u2, v3, x2, y3, z2, b2, c3, d2, e3, f2, LineNumber, w, true); //Reverse ZigZag Line
         LineNumber++;
 
         CheckPayoutLine(u1, v1, x2, y3, z3, b1, c1, d2, e3, f3, LineNumber, w); //Z Line
