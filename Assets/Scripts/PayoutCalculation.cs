@@ -102,9 +102,6 @@ public class PayoutCalculation : MonoBehaviour
 
     private void sub4Calculation(UILineRenderer MyLine, int sub4)
     {
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
         if (sub4 == 1)
         {
             //var newpointlist = new List<Vector2>(MyLine.Points);
@@ -124,9 +121,6 @@ public class PayoutCalculation : MonoBehaviour
 
     private void sub3Calculation(UILineRenderer MyLine, int sub3)
     {
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
         if (sub3 == 1)
         {
             //var newpointlist = new List<Vector2>(MyLine.Points);
@@ -179,7 +173,10 @@ public class PayoutCalculation : MonoBehaviour
             pointlist.Add(points);
             MyLine.Points = pointlist.ToArray();
         }
-        if(min == 4)
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
+        if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
         }
@@ -201,6 +198,9 @@ public class PayoutCalculation : MonoBehaviour
             pointlist.Add(points);
             MyLine.Points = pointlist.ToArray();
         }
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -223,6 +223,9 @@ public class PayoutCalculation : MonoBehaviour
             pointlist.Add(points);
             MyLine.Points = pointlist.ToArray();
         }
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -258,6 +261,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -293,6 +299,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -328,6 +337,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -363,6 +375,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -398,6 +413,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -433,6 +451,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -468,6 +489,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -503,6 +527,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -538,6 +565,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -573,6 +603,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -608,6 +641,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -643,6 +679,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -678,6 +717,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -713,6 +755,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -748,6 +793,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -782,6 +830,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);
@@ -816,6 +867,9 @@ public class PayoutCalculation : MonoBehaviour
         pointlist = new List<Vector2>(MyLine.Points);
         pointlist.Add(points);
         MyLine.Points = pointlist.ToArray();
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
         if (min == 4)
         {
             sub4Calculation(MyLine, sub4);

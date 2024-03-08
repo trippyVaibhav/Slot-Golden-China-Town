@@ -293,11 +293,11 @@ public class SlotBehaviour : MonoBehaviour
     private void StartSlots()
     {
         if (SlotStart_Button) SlotStart_Button.interactable = false;
-        //dummynum1 = Random.Range(3, 17);
-        //dummynum2 = Random.Range(3, 17);
-        //dummynum3 = Random.Range(3, 17);
-        //dummynum4 = Random.Range(3, 17);
-        //dummynum5 = Random.Range(3, 17);
+        dummynum1 = Random.Range(3, 17);
+        dummynum2 = Random.Range(3, 17);
+        dummynum3 = Random.Range(3, 17);
+        dummynum4 = Random.Range(3, 17);
+        dummynum5 = Random.Range(3, 17);
         if (TempList.Count > 0) 
         {
             StopGameAnimation();
@@ -414,15 +414,9 @@ public class SlotBehaviour : MonoBehaviour
     {
         int nval = 0;
         List<Sprite> temp_arr = new List<Sprite> { u, v, x, y, z };
-        nval = temp_arr.Count - temp_arr.Distinct().Count();
-        if (debugval)
-        {
-            Debug.Log("nval value is " + nval);
-            Debug.Log("Distinct value is " + temp_arr.Distinct().Count());
-            Debug.Log("nval value is " + nval);
-        }
+        nval = temp_arr.Count - temp_arr.Distinct().Count() + 1;
         temp_arr.Clear();
-        if (w == null)
+        if (w == null) // disabled wild card
         {
             if ((u == v) && (u == x) || (v == x) && (v == y) || (x == y) && (x == z))
             {
@@ -461,7 +455,7 @@ public class SlotBehaviour : MonoBehaviour
                 }
             }
         }
-        else
+        else //enabled wild card
         {
             if (nval == 2)
             {
@@ -475,7 +469,7 @@ public class SlotBehaviour : MonoBehaviour
                     PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
                     StartGameAnimation(c, d, e, f);
                 }
-                else if (u == v && x == w || u == w && v == x || v == w && u == x)                                                                                                            
+                else if (u == v && x == w || u == w && v == x || v == w && u == x)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum, 3);
                     StartGameAnimation(b, c, d);
@@ -491,9 +485,9 @@ public class SlotBehaviour : MonoBehaviour
                     StartGameAnimation(d, e, f);
                 }
             }
-            else if(nval == 3)
+            else if (nval == 3)
             {
-                if (u == w && v == w || u == w && z == w || y == w && z == w || x == w && z == w || x == w && y == w || v == w && z == w || v == w && y == w || v == w && x == w || u == w && y == w || u == w && x == w)
+                if (u == w && v == w && x == y && y == z || u == w && z == w && x == y && x == v || y == w && z == w && x == u && x == v || x == w && z == w && u == y && u == v || x == w && y == w && u == v && u == z || v == w && z == w && u == y && u == x || v == w && y == w && u == x && u == z || v == w && x == w && u == y && u == z || u == w && y == w && v == x && v == z || u == w && x == w && v == y && v == z)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum);
                     StartGameAnimation(b, c, d, e, f);
@@ -510,10 +504,6 @@ public class SlotBehaviour : MonoBehaviour
                 }
                 else if ((u == v) && (u == x))
                 {
-                    if(debugval)
-                    {
-                        Debug.Log("run this");
-                    }
                     PayCalculator.GeneratePayoutLine(LineNum, 3);
                     StartGameAnimation(b, c, d);
                 }
@@ -522,15 +512,15 @@ public class SlotBehaviour : MonoBehaviour
                     PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
                     StartGameAnimation(c, d, e);
                 }
-                else if (x == y && x == z) 
+                else if (x == y && x == z)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
                     StartGameAnimation(d, e, f);
                 }
             }
-            else if(nval == 4)
+            else if (nval == 4)
             {
-                if (u == w || z == w || v == w || x == w || y == w) 
+                if (u == w || z == w || v == w || x == w || y == w)
                 {
                     PayCalculator.GeneratePayoutLine(LineNum);
                     StartGameAnimation(b, c, d, e, f);
@@ -540,11 +530,31 @@ public class SlotBehaviour : MonoBehaviour
                     PayCalculator.GeneratePayoutLine(LineNum, 4);
                     StartGameAnimation(b, c, d, e);
                 }
-                else if((z == v) && (z == x) && (z == y))
+                else if ((z == v) && (z == x) && (z == y))
                 {
                     PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
                     StartGameAnimation(c, d, e, f);
                 }
+                else if ((u == v) && (u == x))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3);
+                    StartGameAnimation(b, c, d);
+                }
+                else if ((v == x) && (v == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
+                    StartGameAnimation(c, d, e);
+                }
+                else if (x == y && x == z)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
+                    StartGameAnimation(d, e, f);
+                }
+            }
+            else if (nval == 5) 
+            {
+                PayCalculator.GeneratePayoutLine(LineNum);
+                StartGameAnimation(b, c, d, e, f);
             }
         }
     }
@@ -623,7 +633,7 @@ public class SlotBehaviour : MonoBehaviour
         CheckPayoutLine(u2, v1, x2, y1, z2, b2, c1, d2, e1, f2, LineNumber, w); //ZigZag Line
         LineNumber++;
 
-        CheckPayoutLine(u2, v3, x2, y3, z2, b2, c3, d2, e3, f2, LineNumber, w, true); //Reverse ZigZag Line
+        CheckPayoutLine(u2, v3, x2, y3, z2, b2, c3, d2, e3, f2, LineNumber, w); //Reverse ZigZag Line
         LineNumber++;
 
         CheckPayoutLine(u1, v1, x2, y3, z3, b1, c1, d2, e3, f3, LineNumber, w); //Z Line

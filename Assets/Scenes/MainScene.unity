@@ -2094,11 +2094,11 @@ MonoBehaviour:
   PayCalculator: {fileID: 963807277}
   TempList: []
   isWildObj: 1
-  dummynum1: 3
-  dummynum2: 4
-  dummynum3: 3
-  dummynum4: 10
-  dummynum5: 6
+  dummynum1: 9
+  dummynum2: 9
+  dummynum3: 11
+  dummynum4: 7
+  dummynum5: 9
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
