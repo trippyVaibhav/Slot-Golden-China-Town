@@ -15,8 +15,11 @@ public class PayoutCalculation : MonoBehaviour
     [SerializeField]
     private GameObject Line_Prefab;
 
+    [SerializeField]
     private Vector2 line1Position = new Vector2(-315, 100);
+    [SerializeField]
     private Vector2 line2Position = new Vector2(-315, 0);
+    [SerializeField]
     private Vector2 line3Position = new Vector2(-315, -100);
 
 

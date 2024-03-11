@@ -185,7 +185,7 @@ public class SlotBehaviour : MonoBehaviour
             PopulateAnimationSprites(slot_Images[slot_Images.Count - 1].gameObject.GetComponent<ImageAnimation>(), values[k]);
         }
         if (mainContainer_RT) LayoutRebuilder.ForceRebuildLayoutImmediate(mainContainer_RT);
-        tweenHeight = (values.Count * 100)-150;
+        tweenHeight = (values.Count * 300) - 450;
     }
 
     private void PopulateAnimationSprites(ImageAnimation animScript, int val)
@@ -293,11 +293,11 @@ public class SlotBehaviour : MonoBehaviour
     private void StartSlots()
     {
         if (SlotStart_Button) SlotStart_Button.interactable = false;
-        dummynum1 = Random.Range(3, 17);
-        dummynum2 = Random.Range(3, 17);
-        dummynum3 = Random.Range(3, 17);
-        dummynum4 = Random.Range(3, 17);
-        dummynum5 = Random.Range(3, 17);
+        //dummynum1 = Random.Range(3, 17);
+        //dummynum2 = Random.Range(3, 17);
+        //dummynum3 = Random.Range(3, 17);
+        //dummynum4 = Random.Range(3, 17);
+        //dummynum5 = Random.Range(3, 17);
         if (TempList.Count > 0) 
         {
             StopGameAnimation();
@@ -363,6 +363,7 @@ public class SlotBehaviour : MonoBehaviour
         }
         yield return new WaitForSeconds(2);
         CalculatePayoutLines(17 - dummynum1, 17 - dummynum2, 17 - dummynum3, 17 - dummynum4, 17 - dummynum5);
+        KillAllTweens();
         if (SlotStart_Button) SlotStart_Button.interactable = true;
     }
 
@@ -410,7 +411,7 @@ public class SlotBehaviour : MonoBehaviour
         TempList.TrimExcess();
     }
 
-    private void CheckPayoutLine(Sprite u, Sprite v, Sprite x, Sprite y, Sprite z, GameObject b, GameObject c, GameObject d, GameObject e, GameObject f, int LineNum, Sprite w = null, bool debugval = false)
+    private void CheckPayoutLine(Sprite u = null, Sprite v = null, Sprite x = null, Sprite y = null, Sprite z = null, GameObject b = null, GameObject c = null, GameObject d = null, GameObject e = null, GameObject f = null, int LineNum = -1, Sprite w = null, bool debugval = false)
     {
         int nval = 0;
         List<Sprite> temp_arr = new List<Sprite> { u, v, x, y, z };
@@ -711,32 +712,41 @@ public class SlotBehaviour : MonoBehaviour
     private void StopTweening1(int reqpos, Transform slotTransform)
     {
         tweener1.Pause();
-        int tweenpos = (reqpos * 100) - 150;
+        int tweenpos = (reqpos * 300) - 450;
         tweener1 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening2(int reqpos, Transform slotTransform)
     {
         tweener2.Pause();
-        int tweenpos = (reqpos * 100) - 150;
+        int tweenpos = (reqpos * 300) - 450;
         tweener2 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening3(int reqpos, Transform slotTransform)
     {
         tweener3.Pause();
-        int tweenpos = (reqpos * 100) - 150;
+        int tweenpos = (reqpos * 300) - 450;
         tweener3 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening4(int reqpos, Transform slotTransform)
     {
         tweener4.Pause();
-        int tweenpos = (reqpos * 100) - 150;
+        int tweenpos = (reqpos * 300) - 450;
         tweener4 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening5(int reqpos, Transform slotTransform)
     {
         tweener5.Pause();
-        int tweenpos = (reqpos * 100) - 150;
+        int tweenpos = (reqpos * 300) - 450;
         tweener5 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
+    }
+
+    private void KillAllTweens()
+    {
+        tweener1.Kill();
+        tweener2.Kill();
+        tweener3.Kill();
+        tweener4.Kill();
+        tweener5.Kill();
     }
     #endregion
 
