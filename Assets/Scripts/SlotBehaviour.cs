@@ -109,6 +109,9 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private List<ImageAnimation> TempList;
 
+    [SerializeField]
+    private int IconSizeFactor = 100;
+
     int numberOfSlots = 0;
 
     [SerializeField]
@@ -185,7 +188,7 @@ public class SlotBehaviour : MonoBehaviour
             PopulateAnimationSprites(slot_Images[slot_Images.Count - 1].gameObject.GetComponent<ImageAnimation>(), values[k]);
         }
         if (mainContainer_RT) LayoutRebuilder.ForceRebuildLayoutImmediate(mainContainer_RT);
-        tweenHeight = (values.Count * 300) - 450;
+        tweenHeight = (values.Count * IconSizeFactor) - 450;
     }
 
     private void PopulateAnimationSprites(ImageAnimation animScript, int val)
@@ -293,11 +296,11 @@ public class SlotBehaviour : MonoBehaviour
     private void StartSlots()
     {
         if (SlotStart_Button) SlotStart_Button.interactable = false;
-        //dummynum1 = Random.Range(3, 17);
-        //dummynum2 = Random.Range(3, 17);
-        //dummynum3 = Random.Range(3, 17);
-        //dummynum4 = Random.Range(3, 17);
-        //dummynum5 = Random.Range(3, 17);
+        dummynum1 = Random.Range(3, 17);
+        dummynum2 = Random.Range(3, 17);
+        dummynum3 = Random.Range(3, 17);
+        dummynum4 = Random.Range(3, 17);
+        dummynum5 = Random.Range(3, 17);
         if (TempList.Count > 0) 
         {
             StopGameAnimation();
@@ -712,31 +715,31 @@ public class SlotBehaviour : MonoBehaviour
     private void StopTweening1(int reqpos, Transform slotTransform)
     {
         tweener1.Pause();
-        int tweenpos = (reqpos * 300) - 450;
+        int tweenpos = (reqpos * IconSizeFactor) - 450;
         tweener1 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening2(int reqpos, Transform slotTransform)
     {
         tweener2.Pause();
-        int tweenpos = (reqpos * 300) - 450;
+        int tweenpos = (reqpos * IconSizeFactor) - 450;
         tweener2 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening3(int reqpos, Transform slotTransform)
     {
         tweener3.Pause();
-        int tweenpos = (reqpos * 300) - 450;
+        int tweenpos = (reqpos * IconSizeFactor) - 450;
         tweener3 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening4(int reqpos, Transform slotTransform)
     {
         tweener4.Pause();
-        int tweenpos = (reqpos * 300) - 450;
+        int tweenpos = (reqpos * IconSizeFactor) - 450;
         tweener4 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
     private void StopTweening5(int reqpos, Transform slotTransform)
     {
         tweener5.Pause();
-        int tweenpos = (reqpos * 300) - 450;
+        int tweenpos = (reqpos * IconSizeFactor) - 450;
         tweener5 = slotTransform.DOLocalMoveY(-tweenpos, 2f);
     }
 
