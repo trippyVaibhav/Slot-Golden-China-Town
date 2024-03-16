@@ -470,26 +470,26 @@ public class SlotBehaviour : MonoBehaviour
     private void StartSlots()
     {
         if (SlotStart_Button) SlotStart_Button.interactable = false;
-        if (Hold_Images[0].sprite == HoldDisable_Sprite)
-        {
-            dummynum1 = UnityEngine.Random.Range(3, 17);
-        }
-        if (Hold_Images[1].sprite == HoldDisable_Sprite)
-        {
-            dummynum2 = UnityEngine.Random.Range(3, 17);
-        }
-        if (Hold_Images[2].sprite == HoldDisable_Sprite)
-        {
-            dummynum3 = UnityEngine.Random.Range(3, 17);
-        }
-        if (Hold_Images[3].sprite == HoldDisable_Sprite)
-        {
-            dummynum4 = UnityEngine.Random.Range(3, 17);
-        }
-        if (Hold_Images[4].sprite == HoldDisable_Sprite)
-        {
-            dummynum5 = UnityEngine.Random.Range(3, 17);
-        }
+        //if (Hold_Images[0].sprite == HoldDisable_Sprite)
+        //{
+        //    dummynum1 = UnityEngine.Random.Range(3, 17);
+        //}
+        //if (Hold_Images[1].sprite == HoldDisable_Sprite)
+        //{
+        //    dummynum2 = UnityEngine.Random.Range(3, 17);
+        //}
+        //if (Hold_Images[2].sprite == HoldDisable_Sprite)
+        //{
+        //    dummynum3 = UnityEngine.Random.Range(3, 17);
+        //}
+        //if (Hold_Images[3].sprite == HoldDisable_Sprite)
+        //{
+        //    dummynum4 = UnityEngine.Random.Range(3, 17);
+        //}
+        //if (Hold_Images[4].sprite == HoldDisable_Sprite)
+        //{
+        //    dummynum5 = UnityEngine.Random.Range(3, 17);
+        //}
         if (TempList.Count > 0) 
         {
             StopGameAnimation();
@@ -555,7 +555,7 @@ public class SlotBehaviour : MonoBehaviour
         }
         yield return new WaitForSeconds(2);
         CheckPayoutLineBackend("5,7,8,8,15");
-        //CalculatePayoutLines(17 - dummynum1, 17 - dummynum2, 17 - dummynum3, 17 - dummynum4, 17 - dummynum5);
+        CalculatePayoutLines(17 - dummynum1, 17 - dummynum2, 17 - dummynum3, 17 - dummynum4, 17 - dummynum5);
         //Generate
         KillAllTweens();
         if (SlotStart_Button) SlotStart_Button.interactable = true;
@@ -619,7 +619,7 @@ public class SlotBehaviour : MonoBehaviour
         List<int> points = payoutString?.Split(',')?.Select(Int32.Parse)?.ToList();
         List<int> numbers = payoutString?.Split(',')?.Select(Int32.Parse)?.ToList();
 
-        for(int i = 0; i < numbers.Count; i++)
+        for (int i = 0; i < numbers.Count; i++)
         {
             Debug.Log(i);
             Debug.Log(numbers[i]);
@@ -632,276 +632,276 @@ public class SlotBehaviour : MonoBehaviour
 
     private void CalculatePayoutLineBackend(List<string> mylist)
     {
-        for(int i = 0; i < mylist.Count; i++)
+        for (int i = 0; i < mylist.Count; i++)
         {
             //mylist[i].
         }
     }
 
-    //private void CheckPayoutLine(Sprite u = null, Sprite v = null, Sprite x = null, Sprite y = null, Sprite z = null, GameObject b = null, GameObject c = null, GameObject d = null, GameObject e = null, GameObject f = null, int LineNum = -1, Sprite w = null, bool debugval = false)
-    //{
-    //    int nval = 0;
-    //    List<Sprite> temp_arr = new List<Sprite> { u, v, x, y, z };
-    //    nval = temp_arr.Count - temp_arr.Distinct().Count() + 1;
-    //    temp_arr.Clear();
-    //    if (w == null) // disabled wild card
-    //    {
-    //        if ((u == v) && (u == x) || (v == x) && (v == y) || (x == y) && (x == z))
-    //        {
-    //            if ((u == v) && (u == x) && (u == y) || (v == x) && (v == y) && (v == z))
-    //            {
-    //                if ((u == v) && (u == x) && (u == y) && (u == z))
-    //                {
-    //                    PayCalculator.GeneratePayoutLine(LineNum);
-    //                    StartGameAnimation(b, c, d, e, f);
-    //                }
-    //                else if ((u == v) && (u == x) && (u == y))
-    //                {
-    //                    PayCalculator.GeneratePayoutLine(LineNum, 4);
-    //                    StartGameAnimation(b, c, d, e);
-    //                }
-    //                else
-    //                {
-    //                    PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
-    //                    StartGameAnimation(c, d, e, f);
-    //                }
-    //            }
-    //            else if ((u == v) && (u == x))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3);
-    //                StartGameAnimation(b, c, d);
-    //            }
-    //            else if ((v == x) && (v == y))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
-    //                StartGameAnimation(c, d, e);
-    //            }
-    //            else
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
-    //                StartGameAnimation(d, e, f);
-    //            }
-    //        }
-    //    }
-    //    else //enabled wild card
-    //    {
-    //        if (nval == 2)
-    //        {
-    //            if (u == w && v == w && x == y || x == w && y == w && u == v || u == w && x == w && y == v || u == w && y == w && v == x || v == w && x == w && u == y || v == w && y == w && u == x)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 4);
-    //                StartGameAnimation(b, c, d, e);
-    //            }
-    //            else if (z == w && v == w && x == y || x == w && y == w && z == v || z == w && x == w && y == v || z == w && y == w && v == x || v == w && x == w && z == y || v == w && y == w && z == x)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
-    //                StartGameAnimation(c, d, e, f);
-    //            }
-    //            else if (u == v && x == w || u == w && v == x || v == w && u == x)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3);
-    //                StartGameAnimation(b, c, d);
-    //            }
-    //            else if (v == x && y == w || v == w && x == y || x == w && v == y)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
-    //                StartGameAnimation(c, d, e);
-    //            }
-    //            else if (x == y && z == w || x == w && y == z || y == w && z == x)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
-    //                StartGameAnimation(d, e, f);
-    //            }
-    //        }
-    //        else if (nval == 3)
-    //        {
-    //            if (u == w && v == w && x == y && y == z || u == w && z == w && x == y && x == v || y == w && z == w && x == u && x == v || x == w && z == w && u == y && u == v || x == w && y == w && u == v && u == z || v == w && z == w && u == y && u == x || v == w && y == w && u == x && u == z || v == w && x == w && u == y && u == z || u == w && y == w && v == x && v == z || u == w && x == w && v == y && v == z)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum);
-    //                StartGameAnimation(b, c, d, e, f);
-    //            }
-    //            else if (u == w && v == x && v == y || v == w && u == x && u == y || x == w && u == v && u == y || y == w && u == v && u == x)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 4);
-    //                StartGameAnimation(b, c, d, e);
-    //            }
-    //            else if (z == w && v == x && v == y || v == w && z == x && z == y || x == w && z == v && z == y || y == w && z == v && z == x)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
-    //                StartGameAnimation(c, d, e, f);
-    //            }
-    //            else if ((u == v) && (u == x))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3);
-    //                StartGameAnimation(b, c, d);
-    //            }
-    //            else if ((v == x) && (v == y))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
-    //                StartGameAnimation(c, d, e);
-    //            }
-    //            else if (x == y && x == z)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
-    //                StartGameAnimation(d, e, f);
-    //            }
-    //        }
-    //        else if (nval == 4)
-    //        {
-    //            if (u == w || z == w || v == w || x == w || y == w)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum);
-    //                StartGameAnimation(b, c, d, e, f);
-    //            }
-    //            else if ((u == v) && (u == x) && (u == y))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 4);
-    //                StartGameAnimation(b, c, d, e);
-    //            }
-    //            else if ((z == v) && (z == x) && (z == y))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
-    //                StartGameAnimation(c, d, e, f);
-    //            }
-    //            else if ((u == v) && (u == x))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3);
-    //                StartGameAnimation(b, c, d);
-    //            }
-    //            else if ((v == x) && (v == y))
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
-    //                StartGameAnimation(c, d, e);
-    //            }
-    //            else if (x == y && x == z)
-    //            {
-    //                PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
-    //                StartGameAnimation(d, e, f);
-    //            }
-    //        }
-    //        else if (nval == 5) 
-    //        {
-    //            PayCalculator.GeneratePayoutLine(LineNum);
-    //            StartGameAnimation(b, c, d, e, f);
-    //        }
-    //    }
-    //}
+    private void CheckPayoutLine(Sprite u = null, Sprite v = null, Sprite x = null, Sprite y = null, Sprite z = null, GameObject b = null, GameObject c = null, GameObject d = null, GameObject e = null, GameObject f = null, int LineNum = -1, Sprite w = null, bool debugval = false)
+    {
+        int nval = 0;
+        List<Sprite> temp_arr = new List<Sprite> { u, v, x, y, z };
+        nval = temp_arr.Count - temp_arr.Distinct().Count() + 1;
+        temp_arr.Clear();
+        if (w == null) // disabled wild card
+        {
+            if ((u == v) && (u == x) || (v == x) && (v == y) || (x == y) && (x == z))
+            {
+                if ((u == v) && (u == x) && (u == y) || (v == x) && (v == y) && (v == z))
+                {
+                    if ((u == v) && (u == x) && (u == y) && (u == z))
+                    {
+                        PayCalculator.GeneratePayoutLine(LineNum);
+                        StartGameAnimation(b, c, d, e, f);
+                    }
+                    else if ((u == v) && (u == x) && (u == y))
+                    {
+                        PayCalculator.GeneratePayoutLine(LineNum, 4);
+                        StartGameAnimation(b, c, d, e);
+                    }
+                    else
+                    {
+                        PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
+                        StartGameAnimation(c, d, e, f);
+                    }
+                }
+                else if ((u == v) && (u == x))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3);
+                    StartGameAnimation(b, c, d);
+                }
+                else if ((v == x) && (v == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
+                    StartGameAnimation(c, d, e);
+                }
+                else
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
+                    StartGameAnimation(d, e, f);
+                }
+            }
+        }
+        else //enabled wild card
+        {
+            if (nval == 2)
+            {
+                if (u == w && v == w && x == y || x == w && y == w && u == v || u == w && x == w && y == v || u == w && y == w && v == x || v == w && x == w && u == y || v == w && y == w && u == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4);
+                    StartGameAnimation(b, c, d, e);
+                }
+                else if (z == w && v == w && x == y || x == w && y == w && z == v || z == w && x == w && y == v || z == w && y == w && v == x || v == w && x == w && z == y || v == w && y == w && z == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
+                    StartGameAnimation(c, d, e, f);
+                }
+                else if (u == v && x == w || u == w && v == x || v == w && u == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3);
+                    StartGameAnimation(b, c, d);
+                }
+                else if (v == x && y == w || v == w && x == y || x == w && v == y)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
+                    StartGameAnimation(c, d, e);
+                }
+                else if (x == y && z == w || x == w && y == z || y == w && z == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
+                    StartGameAnimation(d, e, f);
+                }
+            }
+            else if (nval == 3)
+            {
+                if (u == w && v == w && x == y && y == z || u == w && z == w && x == y && x == v || y == w && z == w && x == u && x == v || x == w && z == w && u == y && u == v || x == w && y == w && u == v && u == z || v == w && z == w && u == y && u == x || v == w && y == w && u == x && u == z || v == w && x == w && u == y && u == z || u == w && y == w && v == x && v == z || u == w && x == w && v == y && v == z)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum);
+                    StartGameAnimation(b, c, d, e, f);
+                }
+                else if (u == w && v == x && v == y || v == w && u == x && u == y || x == w && u == v && u == y || y == w && u == v && u == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4);
+                    StartGameAnimation(b, c, d, e);
+                }
+                else if (z == w && v == x && v == y || v == w && z == x && z == y || x == w && z == v && z == y || y == w && z == v && z == x)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
+                    StartGameAnimation(c, d, e, f);
+                }
+                else if ((u == v) && (u == x))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3);
+                    StartGameAnimation(b, c, d);
+                }
+                else if ((v == x) && (v == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
+                    StartGameAnimation(c, d, e);
+                }
+                else if (x == y && x == z)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
+                    StartGameAnimation(d, e, f);
+                }
+            }
+            else if (nval == 4)
+            {
+                if (u == w || z == w || v == w || x == w || y == w)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum);
+                    StartGameAnimation(b, c, d, e, f);
+                }
+                else if ((u == v) && (u == x) && (u == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4);
+                    StartGameAnimation(b, c, d, e);
+                }
+                else if ((z == v) && (z == x) && (z == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 4, 2);
+                    StartGameAnimation(c, d, e, f);
+                }
+                else if ((u == v) && (u == x))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3);
+                    StartGameAnimation(b, c, d);
+                }
+                else if ((v == x) && (v == y))
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 2);
+                    StartGameAnimation(c, d, e);
+                }
+                else if (x == y && x == z)
+                {
+                    PayCalculator.GeneratePayoutLine(LineNum, 3, 0, 3);
+                    StartGameAnimation(d, e, f);
+                }
+            }
+            else if (nval == 5)
+            {
+                PayCalculator.GeneratePayoutLine(LineNum);
+                StartGameAnimation(b, c, d, e, f);
+            }
+        }
+    }
 
     #region PayoutLineCalculation
-    //private void CalculatePayoutLines(int a1, int a2, int a3, int a4, int a5)
-    //{
-    //    #region Initializations
-    //    Sprite u1 = slot1_Image[a1].sprite;
-    //    Sprite u2 = slot1_Image[a1 + 1].sprite;
-    //    Sprite u3 = slot1_Image[a1 + 2].sprite;
+    private void CalculatePayoutLines(int a1, int a2, int a3, int a4, int a5)
+    {
+        #region Initializations
+        Sprite u1 = images[0].slotImages[a1].sprite;
+        Sprite u2 = images[0].slotImages[a1 + 1].sprite;
+        Sprite u3 = images[0].slotImages[a1 + 2].sprite;
 
-    //    Sprite v1 = slot2_Image[a2].sprite;
-    //    Sprite v2 = slot2_Image[a2 + 1].sprite;
-    //    Sprite v3 = slot2_Image[a2 + 2].sprite;
+        Sprite v1 = images[1].slotImages[a2].sprite;
+        Sprite v2 = images[1].slotImages[a2 + 1].sprite;
+        Sprite v3 = images[1].slotImages[a2 + 2].sprite;
 
-    //    Sprite x1 = slot3_Image[a3].sprite;
-    //    Sprite x2 = slot3_Image[a3 + 1].sprite;
-    //    Sprite x3 = slot3_Image[a3 + 2].sprite;
+        Sprite x1 = images[2].slotImages[a3].sprite;
+        Sprite x2 = images[2].slotImages[a3 + 1].sprite;
+        Sprite x3 = images[2].slotImages[a3 + 2].sprite;
 
-    //    Sprite y1 = slot4_Image[a4].sprite;
-    //    Sprite y2 = slot4_Image[a4 + 1].sprite;
-    //    Sprite y3 = slot4_Image[a4 + 2].sprite;
+        Sprite y1 = images[3].slotImages[a4].sprite;
+        Sprite y2 = images[3].slotImages[a4 + 1].sprite;
+        Sprite y3 = images[3].slotImages[a4 + 2].sprite;
 
-    //    Sprite z1 = slot5_Image[a5].sprite;
-    //    Sprite z2 = slot5_Image[a5 + 1].sprite;
-    //    Sprite z3 = slot5_Image[a5 + 2].sprite;
+        Sprite z1 = images[4].slotImages[a5].sprite;
+        Sprite z2 = images[4].slotImages[a5 + 1].sprite;
+        Sprite z3 = images[4].slotImages[a5 + 2].sprite;
 
-    //    Sprite w = null;
+        Sprite w = null;
 
-    //    if (isWildObj)
-    //    {
-    //        if (WildSprite)
-    //        {
-    //            w = WildSprite;
-    //        }
-    //    }
+        if (isWildObj)
+        {
+            if (WildSprite)
+            {
+                w = WildSprite;
+            }
+        }
 
-    //    GameObject b1 = slot1_Image[a1].gameObject;
-    //    GameObject b2 = slot1_Image[a1 + 1].gameObject;
-    //    GameObject b3 = slot1_Image[a1 + 2].gameObject;
+        GameObject b1 = images[0].slotImages[a1].gameObject;
+        GameObject b2 = images[0].slotImages[a1 + 1].gameObject;
+        GameObject b3 = images[0].slotImages[a1 + 2].gameObject;
 
-    //    GameObject c1 = slot2_Image[a2].gameObject;
-    //    GameObject c2 = slot2_Image[a2 + 1].gameObject;
-    //    GameObject c3 = slot2_Image[a2 + 2].gameObject;
+        GameObject c1 = images[1].slotImages[a2].gameObject;
+        GameObject c2 = images[1].slotImages[a2 + 1].gameObject;
+        GameObject c3 = images[1].slotImages[a2 + 2].gameObject;
 
-    //    GameObject d1 = slot3_Image[a3].gameObject;
-    //    GameObject d2 = slot3_Image[a3 + 1].gameObject;
-    //    GameObject d3 = slot3_Image[a3 + 2].gameObject;
+        GameObject d1 = images[2].slotImages[a3].gameObject;
+        GameObject d2 = images[2].slotImages[a3 + 1].gameObject;
+        GameObject d3 = images[2].slotImages[a3 + 2].gameObject;
 
-    //    GameObject e1 = slot4_Image[a4].gameObject;
-    //    GameObject e2 = slot4_Image[a4 + 1].gameObject;
-    //    GameObject e3 = slot4_Image[a4 + 2].gameObject;
+        GameObject e1 = images[3].slotImages[a4].gameObject;
+        GameObject e2 = images[3].slotImages[a4 + 1].gameObject;
+        GameObject e3 = images[3].slotImages[a4 + 2].gameObject;
 
-    //    GameObject f1 = slot5_Image[a5].gameObject;
-    //    GameObject f2 = slot5_Image[a5 + 1].gameObject;
-    //    GameObject f3 = slot5_Image[a5 + 2].gameObject;
-    //    #endregion
+        GameObject f1 = images[4].slotImages[a5].gameObject;
+        GameObject f2 = images[4].slotImages[a5 + 1].gameObject;
+        GameObject f3 = images[4].slotImages[a5 + 2].gameObject;
+        #endregion
 
-    //    int LineNumber = 1;
-    //    CheckPayoutLine(u2, v2, x2, y2, z2, b2, c2, d2, e2, f2, LineNumber, w);//Middle Line
-    //    LineNumber++;
+        int LineNumber = 1;
+        CheckPayoutLine(u2, v2, x2, y2, z2, b2, c2, d2, e2, f2, LineNumber, w);//Middle Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v1, x1, y1, z1, b1, c1, d1, e1, f1, LineNumber, w);//Top Line
-    //    LineNumber++;
+        CheckPayoutLine(u1, v1, x1, y1, z1, b1, c1, d1, e1, f1, LineNumber, w);//Top Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u3, v3, x3, y3, z3, b3, c3, d3, e3, f3, LineNumber, w); //Bottom Line
-    //    LineNumber++;
+        CheckPayoutLine(u3, v3, x3, y3, z3, b3, c3, d3, e3, f3, LineNumber, w); //Bottom Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v2, x3, y2, z1, b1, c2, d3, e2, f1, LineNumber, w); //V Line
-    //    LineNumber++;
+        CheckPayoutLine(u1, v2, x3, y2, z1, b1, c2, d3, e2, f1, LineNumber, w); //V Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u3, v2, x1, y2, z3, b3, c2, d1, e2, f3, LineNumber, w); //Reverse V Line
-    //    LineNumber++;
+        CheckPayoutLine(u3, v2, x1, y2, z3, b3, c2, d1, e2, f3, LineNumber, w); //Reverse V Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u2, v1, x2, y1, z2, b2, c1, d2, e1, f2, LineNumber, w); //ZigZag Line
-    //    LineNumber++;
+        CheckPayoutLine(u2, v1, x2, y1, z2, b2, c1, d2, e1, f2, LineNumber, w); //ZigZag Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u2, v3, x2, y3, z2, b2, c3, d2, e3, f2, LineNumber, w); //Reverse ZigZag Line
-    //    LineNumber++;
+        CheckPayoutLine(u2, v3, x2, y3, z2, b2, c3, d2, e3, f2, LineNumber, w); //Reverse ZigZag Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v1, x2, y3, z3, b1, c1, d2, e3, f3, LineNumber, w); //Z Line
-    //    LineNumber++;
+        CheckPayoutLine(u1, v1, x2, y3, z3, b1, c1, d2, e3, f3, LineNumber, w); //Z Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u3, v3, x2, y1, z1, b3, c3, d2, e1, f1, LineNumber, w); //Reverse Z Line
-    //    LineNumber++;
+        CheckPayoutLine(u3, v3, x2, y1, z1, b3, c3, d2, e1, f1, LineNumber, w); //Reverse Z Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u2, v3, x2, y1, z2, b2, c3, d2, e1, f2, LineNumber, w); //Uneven Line
-    //    LineNumber++;
+        CheckPayoutLine(u2, v3, x2, y1, z2, b2, c3, d2, e1, f2, LineNumber, w); //Uneven Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u2, v1, x2, y3, z2, b2, c1, d2, e3, f2, LineNumber, w); //Reverse Uneven Line
-    //    LineNumber++;
+        CheckPayoutLine(u2, v1, x2, y3, z2, b2, c1, d2, e3, f2, LineNumber, w); //Reverse Uneven Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v2, x2, y2, z1, b1, c2, d2, e2, f1, LineNumber, w); //U Line
-    //    LineNumber++;
+        CheckPayoutLine(u1, v2, x2, y2, z1, b1, c2, d2, e2, f1, LineNumber, w); //U Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u3, v2, x2, y2, z3, b3, c2, d2, e2, f3, LineNumber, w); //Reverse U Line
-    //    LineNumber++;
+        CheckPayoutLine(u3, v2, x2, y2, z3, b3, c2, d2, e2, f3, LineNumber, w); //Reverse U Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v2, x1, y2, z1, b1, c2, d1, e2, f1, LineNumber, w); //W Line
-    //    LineNumber++;
+        CheckPayoutLine(u1, v2, x1, y2, z1, b1, c2, d1, e2, f1, LineNumber, w); //W Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u3, v2, x3, y2, z3, b3, c2, d3, e2, f3, LineNumber, w); //Reverse W Line
-    //    LineNumber++;
+        CheckPayoutLine(u3, v2, x3, y2, z3, b3, c2, d3, e2, f3, LineNumber, w); //Reverse W Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u2, v2, x1, y2, z2, b2, c2, d1, e2, f2, LineNumber, w); //Reverse Small T Line
-    //    LineNumber++;
+        CheckPayoutLine(u2, v2, x1, y2, z2, b2, c2, d1, e2, f2, LineNumber, w); //Reverse Small T Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u2, v2, x3, y2, z2, b2, c2, d3, e2, f2, LineNumber, w); //Small T Line
-    //    LineNumber++; 
+        CheckPayoutLine(u2, v2, x3, y2, z2, b2, c2, d3, e2, f2, LineNumber, w); //Small T Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v1, x3, y1, z1, b1, c1, d3, e1, f1, LineNumber, w); //T Line
-    //    LineNumber++; 
+        CheckPayoutLine(u1, v1, x3, y1, z1, b1, c1, d3, e1, f1, LineNumber, w); //T Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u3, v3, x1, y3, z3, b3, c3, d1, e3, f3, LineNumber, w); //Reverse T Line
-    //    LineNumber++; 
+        CheckPayoutLine(u3, v3, x1, y3, z3, b3, c3, d1, e3, f3, LineNumber, w); //Reverse T Line
+        LineNumber++;
 
-    //    CheckPayoutLine(u1, v3, x3, y3, z1, b1, c3, d3, e3, f1, LineNumber, w); //Smiley Line
-    //}
+        CheckPayoutLine(u1, v3, x3, y3, z1, b1, c3, d3, e3, f1, LineNumber, w); //Smiley Line
+    }
     #endregion
 
     #region TweeningCode
