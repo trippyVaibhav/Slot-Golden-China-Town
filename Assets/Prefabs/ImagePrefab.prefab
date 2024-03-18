@@ -93,5 +93,5 @@ MonoBehaviour:
   useSharedMaterial: 1
   doLoopAnimation: 1
   currentAnimationState: 0
-  AnimationSpeed: 15
+  AnimationSpeed: 12
   delayBetweenLoop: 0

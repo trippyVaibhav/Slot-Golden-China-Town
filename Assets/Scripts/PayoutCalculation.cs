@@ -6,9 +6,9 @@ using UnityEngine.UI.Extensions;
 public class PayoutCalculation : MonoBehaviour
 {
     [SerializeField]
-    private int[] x_Points;
+    private int x_Distance;
     [SerializeField]
-    private int[] y_Points;
+    private int y_Distance;
 
     [SerializeField]
     private Transform LineContainer;
@@ -16,83 +16,91 @@ public class PayoutCalculation : MonoBehaviour
     private GameObject Line_Prefab;
 
     [SerializeField]
-    private Vector2 line1Position = new Vector2(-315, 100);
-    [SerializeField]
-    private Vector2 line2Position = new Vector2(-315, 0);
-    [SerializeField]
-    private Vector2 line3Position = new Vector2(-315, -100);
+    private Vector2 InitialLinePosition = new Vector2(-315, 100);
 
 
-    private void Start()
+    //internal void GeneratePayoutLine(int possibilities,int min = 5, int sub4 = 1, int sub3 = 1)
+    //{
+    //    switch (possibilities)
+    //    {
+    //        //case 1:
+    //        //    MiddleLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 2:
+    //        //    TopLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 3:
+    //        //    BottomLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 4:
+    //        //    VLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 5:
+    //        //    ReverseVLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 6:
+    //        //    UpperZigZagLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 7:
+    //        //    LowerZigZagLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 8:
+    //        //    ZLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 9:
+    //        //    ReverseZLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 10:
+    //        //    UnevenLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 11:
+    //        //    ReverseUnevenLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 12:
+    //        //    ULine(min, sub4, sub3);
+    //        //    break;
+    //        //case 13:
+    //        //    ReverseULine(min, sub4, sub3);
+    //        //    break;
+    //        //case 14:
+    //        //    WLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 15:
+    //        //    ReverseWLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 16:
+    //        //    ReverseSmallTLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 17:
+    //        //    SmallTLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 18:
+    //        //    TLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 19:
+    //        //    ReverseTLine(min, sub4, sub3);
+    //        //    break;
+    //        //case 20:
+    //        //    SmileyLine(min, sub4, sub3);
+    //        //    break;
+    //    }
+    //}
+
+    internal void GeneratePayoutLinesBackend(List<int> x_index, List<int> y_index, int Count)
     {
-        
-    }
-
-    internal void GeneratePayoutLine(int possibilities,int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        switch (possibilities)
+        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+        MyLineObj.transform.localPosition = new Vector2(InitialLinePosition.x, InitialLinePosition.y + (y_index[0] * y_Distance));
+        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+        for (int i = 0; i < Count; i++)
         {
-            case 1:
-                MiddleLine(min, sub4, sub3);
-                break;
-            case 2:
-                TopLine(min, sub4, sub3);
-                break;
-            case 3:
-                BottomLine(min, sub4, sub3);
-                break;
-            case 4:
-                VLine(min, sub4, sub3);
-                break;
-            case 5:
-                ReverseVLine(min, sub4, sub3);
-                break;
-            case 6:
-                UpperZigZagLine(min, sub4, sub3);
-                break;
-            case 7:
-                LowerZigZagLine(min, sub4, sub3);
-                break;
-            case 8:
-                ZLine(min, sub4, sub3);
-                break;
-            case 9:
-                ReverseZLine(min, sub4, sub3);
-                break;
-            case 10:
-                UnevenLine(min, sub4, sub3);
-                break;
-            case 11:
-                ReverseUnevenLine(min, sub4, sub3);
-                break;
-            case 12:
-                ULine(min, sub4, sub3);
-                break;
-            case 13:
-                ReverseULine(min, sub4, sub3);
-                break;
-            case 14:
-                WLine(min, sub4, sub3);
-                break;
-            case 15:
-                ReverseWLine(min, sub4, sub3);
-                break;
-            case 16:
-                ReverseSmallTLine(min, sub4, sub3);
-                break;
-            case 17:
-                SmallTLine(min, sub4, sub3);
-                break;
-            case 18:
-                TLine(min, sub4, sub3);
-                break;
-            case 19:
-                ReverseTLine(min, sub4, sub3);
-                break;
-            case 20:
-                SmileyLine(min, sub4, sub3);
-                break;
+            var points = new Vector2() { x = x_index[i] * x_Distance, y = y_index[i] * y_Distance };
+            var pointlist = new List<Vector2>(MyLine.Points);
+            pointlist.Add(points);
+            MyLine.Points = pointlist.ToArray();
         }
+        var newpointlist = new List<Vector2>(MyLine.Points);
+        newpointlist.RemoveAt(0);
+        MyLine.Points = newpointlist.ToArray();
     }
 
     internal void ResetLines()
@@ -103,784 +111,566 @@ public class PayoutCalculation : MonoBehaviour
         }
     }
 
-    private void sub4Calculation(UILineRenderer MyLine, int sub4)
-    {
-        if (sub4 == 1)
-        {
-            //var newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(5);
-            //MyLine.Points = newpointlist.ToArray();
-        }
-        else
-        {
-            //var newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-        }
-    }
-
-    private void sub3Calculation(UILineRenderer MyLine, int sub3)
-    {
-        if (sub3 == 1)
-        {
-            //var newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(4);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(4);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-        }
-        else if (sub3 == 2)
-        {
-            //var newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(3);
-            //MyLine.Points = newpointlist.ToArray();
-        }
-        else
-        {
-            //var newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-            //newpointlist = new List<Vector2>(MyLine.Points);
-            //newpointlist.RemoveAt(0);
-            //MyLine.Points = newpointlist.ToArray();
-        }
-    }
 
     #region PayoutLine Functions
 
-    private void MiddleLine(int min = 5,int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        for (int i = 0; i < 5; i++)
-        {
-            var points = new Vector2() { x = x_Points[i], y = y_Points[0] };
-            var pointlist = new List<Vector2>(MyLine.Points);
-            pointlist.Add(points);
-            MyLine.Points = pointlist.ToArray();
-        }
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if(min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void MiddleLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        var points = new Vector2() { x = x_Points[i], y = y_Points[0] };
+    //        var pointlist = new List<Vector2>(MyLine.Points);
+    //        pointlist.Add(points);
+    //        MyLine.Points = pointlist.ToArray();
+    //    }
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void TopLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        for (int i = 0; i < 5; i++)
-        {
-            var points = new Vector2() { x = x_Points[i], y = y_Points[0] };
-            var pointlist = new List<Vector2>(MyLine.Points);
-            pointlist.Add(points);
-            MyLine.Points = pointlist.ToArray();
-        }
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void TopLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        var points = new Vector2() { x = x_Points[i], y = y_Points[0] };
+    //        var pointlist = new List<Vector2>(MyLine.Points);
+    //        pointlist.Add(points);
+    //        MyLine.Points = pointlist.ToArray();
+    //    }
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void BottomLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line3Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        for (int i = 0; i < 5; i++)
-        {
-            var points = new Vector2() { x = x_Points[i], y = y_Points[0] };
-            var pointlist = new List<Vector2>(MyLine.Points);
-            pointlist.Add(points);
-            MyLine.Points = pointlist.ToArray();
-        }
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void BottomLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line3Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        var points = new Vector2() { x = x_Points[i], y = y_Points[0] };
+    //        var pointlist = new List<Vector2>(MyLine.Points);
+    //        pointlist.Add(points);
+    //        MyLine.Points = pointlist.ToArray();
+    //    }
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void VLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = -y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void VLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = -y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ReverseVLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line3Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ReverseVLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line3Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void UpperZigZagLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void UpperZigZagLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void LowerZigZagLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void LowerZigZagLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ZLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ZLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ReverseZLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line3Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ReverseZLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line3Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void UnevenLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void UnevenLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ReverseUnevenLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ReverseUnevenLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ULine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ULine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ReverseULine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line3Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ReverseULine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line3Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void WLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void WLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ReverseWLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line3Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ReverseWLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line3Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void ReverseSmallTLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void ReverseSmallTLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void SmallTLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line2Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = -y_Points[1] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void SmallTLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line2Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = -y_Points[1] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
 
-    private void TLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
-    private void ReverseTLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line3Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
-    private void SmileyLine(int min = 5, int sub4 = 1, int sub3 = 1)
-    {
-        GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
-        MyLineObj.transform.localPosition = line1Position;
-        UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
-        var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
-        var pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[1], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[2], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[3], y = -y_Points[2] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        points = new Vector2() { x = x_Points[4], y = y_Points[0] };
-        pointlist = new List<Vector2>(MyLine.Points);
-        pointlist.Add(points);
-        MyLine.Points = pointlist.ToArray();
-        var newpointlist = new List<Vector2>(MyLine.Points);
-        newpointlist.RemoveAt(0);
-        MyLine.Points = newpointlist.ToArray();
-        if (min == 4)
-        {
-            sub4Calculation(MyLine, sub4);
-        }
-        else if (min == 3)
-        {
-            sub3Calculation(MyLine, sub3);
-        }
-    }
+    //private void TLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
+    //private void ReverseTLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line3Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
+    //private void SmileyLine()
+    //{
+    //    GameObject MyLineObj = Instantiate(Line_Prefab, LineContainer);
+    //    MyLineObj.transform.localPosition = line1Position;
+    //    UILineRenderer MyLine = MyLineObj.GetComponent<UILineRenderer>();
+    //    var points = new Vector2() { x = x_Points[0], y = y_Points[0] };
+    //    var pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[1], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[2], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[3], y = -y_Points[2] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    points = new Vector2() { x = x_Points[4], y = y_Points[0] };
+    //    pointlist = new List<Vector2>(MyLine.Points);
+    //    pointlist.Add(points);
+    //    MyLine.Points = pointlist.ToArray();
+    //    var newpointlist = new List<Vector2>(MyLine.Points);
+    //    newpointlist.RemoveAt(0);
+    //    MyLine.Points = newpointlist.ToArray();
+    //}
     #endregion
 }
