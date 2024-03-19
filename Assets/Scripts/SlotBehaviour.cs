@@ -43,13 +43,8 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private List<TMP_Text> StaticLine_Texts;
 
-    [Header("All Lines X String")]
-    [SerializeField]
-    private List<string> x_string;
-
-    [Header("All Lines Y String")]
-    [SerializeField]
-    private List<string> y_string;
+    private Dictionary<int, string> x_string = new Dictionary<int, string>();
+    private Dictionary<int, string> y_string = new Dictionary<int, string>();
 
     [Header("Buttons")]
     [SerializeField]
@@ -126,6 +121,12 @@ public class SlotBehaviour : MonoBehaviour
     [Header("Dummy Values")]
     [SerializeField]
     private List<int> Row_1_value;
+    [SerializeField]
+    private List<string> x_values;
+    [SerializeField]
+    private List<string> y_values;
+    [SerializeField]
+    private List<int> LineIds;
 
     int tweenHeight = 0;
 
@@ -201,6 +202,41 @@ public class SlotBehaviour : MonoBehaviour
         //if (AutoSpin_Button) AutoSpin_Button.onClick.AddListener(AutoSpin);
         numberOfSlots = 5;
         PopulateInitalSlots(numberOfSlots);
+        FetchLines();
+    }
+
+    private void FetchLines()
+    {
+        for (int i = 0; i < LineIds.Count; i++)
+        {
+            x_string.Add(LineIds[i], x_values[i]);
+            y_string.Add(LineIds[i], y_values[i]);
+            StaticLine_Texts[i].text = LineIds[i].ToString();
+            StaticLine_Objects[i].SetActive(true);
+        }
+    }
+
+    public void GenerateStaticLine(TMP_Text LineID_Text)
+    {
+        int LineID = 1;
+        try
+        {
+            LineID = int.Parse(LineID_Text.text);
+        }
+        catch(Exception e)
+        {
+            Debug.Log("Exception while parsing " + e.Message);
+        }
+        List<int> x_points = null;
+        List<int> y_points = null;
+        x_points = x_string[LineID]?.Split(',')?.Select(Int32.Parse)?.ToList();
+        y_points = y_string[LineID]?.Split(',')?.Select(Int32.Parse)?.ToList();
+        PayCalculator.GeneratePayoutLinesBackend(x_points, y_points, x_points.Count, true);
+    }
+
+    public void DestroyStaticLine()
+    {
+        PayCalculator.ResetStaticLine();
     }
 
     bool IsAutoSpin = false;
@@ -523,9 +559,7 @@ public class SlotBehaviour : MonoBehaviour
     }
 
     [SerializeField]
-    private List<string> x_payString;
-    [SerializeField]
-    private List<string> y_payString;
+    private List<int> TempLineIds;
     [SerializeField]
     private List<string> x_animationString;
     [SerializeField]
@@ -589,7 +623,7 @@ public class SlotBehaviour : MonoBehaviour
         string dummynum = dummynum1 + "," + dummynum2 + "," + dummynum3 + "," + dummynum4 + "," + dummynum5;
         yield return new WaitForSeconds(2);
         GenerateMatrix(dummynum);
-        CheckPayoutLineBackend(x_payString, y_payString, x_animationString, y_animationString);
+        CheckPayoutLineBackend(TempLineIds, x_animationString, y_animationString);
         //CalculatePayoutLines(17 - dummynum1, 17 - dummynum2, 17 - dummynum3, 17 - dummynum4, 17 - dummynum5);
         KillAllTweens();
         if (SlotStart_Button) SlotStart_Button.interactable = true;
@@ -621,23 +655,19 @@ public class SlotBehaviour : MonoBehaviour
         TempList.TrimExcess();
     }
 
-    private void CheckPayoutLineBackend(List<string> x_payoutString, List<string> y_payoutString, List<string> x_AnimString, List<string> y_AnimString)
+    private void CheckPayoutLineBackend(List<int> LineId, List<string> x_AnimString, List<string> y_AnimString)
     {
         List<int> x_points = null;
         List<int> y_points = null;
         List<int> x_anim = null;
         List<int> y_anim = null;
 
-        for (int i = 0; i < x_payoutString.Count; i++)
+        for (int i = 0; i < LineId.Count; i++)
         {
-            x_points = x_payoutString[i]?.Split(',')?.Select(Int32.Parse)?.ToList();
+            x_points = x_string[LineId[i]]?.Split(',')?.Select(Int32.Parse)?.ToList();
+            y_points = y_string[LineId[i]]?.Split(',')?.Select(Int32.Parse)?.ToList();
+            PayCalculator.GeneratePayoutLinesBackend(x_points, y_points, x_points.Count);
         }
-        for (int i = 0; i < y_payoutString.Count; i++)
-        {
-            y_points = y_payoutString[i]?.Split(',')?.Select(Int32.Parse)?.ToList();
-        }
-
-        PayCalculator.GeneratePayoutLinesBackend(x_points, y_points, x_points.Count);
 
         for (int i = 0; i < x_AnimString.Count; i++)
         {
