@@ -118,15 +118,15 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private Button LineMinus_Button;
 
-    [Header("Dummy Values")]
-    [SerializeField]
-    private List<int> Row_1_value;
-    [SerializeField]
-    private List<string> x_values;
-    [SerializeField]
-    private List<string> y_values;
-    [SerializeField]
-    private List<int> LineIds;
+    //[Header("Dummy Values")]
+    //[SerializeField]
+    //private List<int> Row_1_value;
+    //[SerializeField]
+    //private List<string> x_values;
+    //[SerializeField]
+    //private List<string> y_values;
+    //[SerializeField]
+    //private List<int> LineIds;
 
     int tweenHeight = 0;
 
@@ -168,8 +168,9 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     int verticalVisibility = 3;
 
-    Coroutine AutoSpinRoutine = null;
-    private int[,] mainArr;
+    [SerializeField]
+    private SocketIOManager SocketManager;
+    //Coroutine AutoSpinRoutine = null;
 
     private void Start()
     {
@@ -201,18 +202,15 @@ public class SlotBehaviour : MonoBehaviour
         //if (AutoSpin_Button) AutoSpin_Button.onClick.AddListener(AutoSpin);
         //numberOfSlots = 5;
         //PopulateInitalSlots(numberOfSlots);
-        FetchLines();
+        //FetchLines();
     }
 
-    private void FetchLines()
+    internal void FetchLines(string x_value, string y_value, int LineID, int count)
     {
-        for (int i = 0; i < LineIds.Count; i++)
-        {
-            x_string.Add(LineIds[i], x_values[i]);
-            y_string.Add(LineIds[i], y_values[i]);
-            StaticLine_Texts[i].text = LineIds[i].ToString();
-            StaticLine_Objects[i].SetActive(true);
-        }
+        x_string.Add(LineID, x_value);
+        y_string.Add(LineID, y_value);
+        StaticLine_Texts[count].text = LineID.ToString();
+        StaticLine_Objects[count].SetActive(true);
     }
 
     internal void GenerateStaticLine(TMP_Text LineID_Text)
@@ -565,35 +563,36 @@ public class SlotBehaviour : MonoBehaviour
         {
             InitializeTweening5(Slot_Transform[4]);
         }
+        SocketManager.AccumulateResult();
         yield return new WaitForSeconds(0.5f);
+        List<int> resultnum = SocketManager.tempresult.StopList?.Split(',')?.Select(Int32.Parse)?.ToList();
         if (numberOfSlots >= 1 && Hold_Images[0].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening1(dummynum1, Slot_Transform[0]);
+            yield return StopTweening1(resultnum[0], Slot_Transform[0]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 2 && Hold_Images[1].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening2(dummynum2, Slot_Transform[1]);
+            yield return StopTweening2(resultnum[1], Slot_Transform[1]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 3 && Hold_Images[2].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening3(dummynum3, Slot_Transform[2]);
+            yield return StopTweening3(resultnum[2], Slot_Transform[2]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 4 && Hold_Images[3].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening4(dummynum4, Slot_Transform[3]);
+            yield return StopTweening4(resultnum[3], Slot_Transform[3]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 5 && Hold_Images[4].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening5(dummynum5, Slot_Transform[4]);
+            yield return StopTweening5(resultnum[4], Slot_Transform[4]);
         }
-        string dummynum = dummynum1 + "," + dummynum2 + "," + dummynum3 + "," + dummynum4 + "," + dummynum5;
         yield return new WaitForSeconds(0.3f);
-        GenerateMatrix(dummynum);
-        CheckPayoutLineBackend(TempLineIds, x_animationString, y_animationString);
+        GenerateMatrix(SocketManager.tempresult.StopList);
+        CheckPayoutLineBackend(SocketManager.tempresult.resultLine, SocketManager.tempresult.x_animResult, SocketManager.tempresult.y_animResult);
         //CalculatePayoutLines(17 - dummynum1, 17 - dummynum2, 17 - dummynum3, 17 - dummynum4, 17 - dummynum5);
         KillAllTweens();
         if (SlotStart_Button) SlotStart_Button.interactable = true;
@@ -642,15 +641,12 @@ public class SlotBehaviour : MonoBehaviour
         for (int i = 0; i < x_AnimString.Count; i++)
         {
             x_anim = x_AnimString[i]?.Split(',')?.Select(Int32.Parse)?.ToList();
-        }
-        for (int i = 0; i < x_AnimString.Count; i++)
-        {
             y_anim = y_AnimString[i]?.Split(',')?.Select(Int32.Parse)?.ToList();
-        }
 
-        for (int i = 0; i < x_anim.Count; i++) 
-        {
-            StartGameAnimation(Tempimages[x_anim[i]].slotImages[y_anim[i]].gameObject);
+            for (int k = 0; k < x_anim.Count; k++)
+            {
+                StartGameAnimation(Tempimages[x_anim[k]].slotImages[y_anim[k]].gameObject);
+            }
         }
     }
 
