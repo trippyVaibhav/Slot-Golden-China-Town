@@ -568,27 +568,27 @@ public class SlotBehaviour : MonoBehaviour
         List<int> resultnum = SocketManager.tempresult.StopList?.Split(',')?.Select(Int32.Parse)?.ToList();
         if (numberOfSlots >= 1 && Hold_Images[0].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening1(resultnum[0], Slot_Transform[0]);
+            yield return StopTweening1(resultnum[0]+3, Slot_Transform[0]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 2 && Hold_Images[1].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening2(resultnum[1], Slot_Transform[1]);
+            yield return StopTweening2(resultnum[1]+3, Slot_Transform[1]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 3 && Hold_Images[2].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening3(resultnum[2], Slot_Transform[2]);
+            yield return StopTweening3(resultnum[2]+3, Slot_Transform[2]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 4 && Hold_Images[3].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening4(resultnum[3], Slot_Transform[3]);
+            yield return StopTweening4(resultnum[3]+3, Slot_Transform[3]);
         }
         yield return new WaitForSeconds(0.5f);
         if (numberOfSlots >= 5 && Hold_Images[4].sprite == HoldDisable_Sprite)
         {
-            yield return StopTweening5(resultnum[4], Slot_Transform[4]);
+            yield return StopTweening5(resultnum[4]+3, Slot_Transform[4]);
         }
         yield return new WaitForSeconds(0.3f);
         GenerateMatrix(SocketManager.tempresult.StopList);
@@ -658,7 +658,7 @@ public class SlotBehaviour : MonoBehaviour
         {
             for (int s = 0; s < verticalVisibility; s++)
             {
-                Tempimages[i].slotImages.Add(images[i].slotImages[(images[i].slotImages.Count - numbers[i]) + s]);
+                Tempimages[i].slotImages.Add(images[i].slotImages[(images[i].slotImages.Count - (numbers[i]+3)) + s]);
             }
         }
     }
