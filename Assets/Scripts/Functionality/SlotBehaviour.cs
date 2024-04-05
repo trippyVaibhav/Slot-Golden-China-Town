@@ -495,6 +495,8 @@ public class SlotBehaviour : MonoBehaviour
         }
     }
 
+    //git feature test...
+
     private void StartSlots()
     {
         if (SlotStart_Button) SlotStart_Button.interactable = false;
