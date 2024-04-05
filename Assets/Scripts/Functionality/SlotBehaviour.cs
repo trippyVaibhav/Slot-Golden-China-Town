@@ -524,6 +524,11 @@ public class SlotBehaviour : MonoBehaviour
         }
         PayCalculator.ResetLines();
         StartCoroutine(TweenRoutine());
+        for (int i = 0; i < Tempimages.Count; i++)
+        {
+            Tempimages[i].slotImages.Clear();
+            Tempimages[i].slotImages.TrimExcess();
+        }
     }
 
     [SerializeField]
@@ -620,8 +625,6 @@ public class SlotBehaviour : MonoBehaviour
         {
             TempList[i].StopAnimation();
         }
-        TempList.Clear();
-        TempList.TrimExcess();
     }
 
     private void CheckPayoutLineBackend(List<int> LineId, List<string> x_AnimString, List<string> y_AnimString)
