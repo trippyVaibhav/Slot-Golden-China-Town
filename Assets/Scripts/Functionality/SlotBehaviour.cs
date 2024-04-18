@@ -109,14 +109,7 @@ public class SlotBehaviour : MonoBehaviour
     private Button LineMinus_Button;
 
     [Header("Audio Management")]
-    [SerializeField]
-    private AudioSource _audioSource;
-    [SerializeField]
-    private AudioClip _spinSound;
-    [SerializeField]
-    private AudioClip _lossSound;
-    [SerializeField]
-    private AudioClip[] _winSounds;
+    [SerializeField] private AudioController audioController;
 
     int tweenHeight = 0;
 
@@ -126,11 +119,6 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private PayoutCalculation PayCalculator;
 
-    private Tweener tweener1;
-    private Tweener tweener2;
-    private Tweener tweener3;
-    private Tweener tweener4;
-    private Tweener tweener5;
 
     [SerializeField]
     private List<ImageAnimation> TempList;
@@ -240,11 +228,13 @@ public class SlotBehaviour : MonoBehaviour
 
     private void MaxBet()
     {
+        if(audioController)audioController.PlayButtonAudio();
         if (TotalBet_text) TotalBet_text.text = "99999";
     }
 
     private void ChangeLine(bool IncDec)
     {
+        if(audioController)audioController.PlayButtonAudio();
         double currentline = 1;
         try
         {
@@ -293,6 +283,7 @@ public class SlotBehaviour : MonoBehaviour
 
     private void ChangeBet(bool IncDec)
     {
+        if (audioController) audioController.PlayButtonAudio();
         double currentbet = 0;
         try
         {
@@ -482,9 +473,7 @@ public class SlotBehaviour : MonoBehaviour
 
     private void StartSlots(bool autoSpin = false)
     {
-        if (_audioSource) _audioSource.clip = _spinSound;
-        if (_audioSource) _audioSource.loop = true;
-        if (_audioSource) _audioSource.Play();
+        if (audioController) audioController.PlayWLAudio("spin");
 
         if (!autoSpin)
         {
@@ -565,11 +554,8 @@ public class SlotBehaviour : MonoBehaviour
         List<int> y_anim = null;
         if (LineId.Count > 0)
         {
-            int choice = UnityEngine.Random.Range(0, 2);
-            if (_audioSource) _audioSource.Stop();
-            if (_audioSource) _audioSource.loop = false;
-            if (_audioSource) _audioSource.clip = _winSounds[choice];
-            if (_audioSource) _audioSource.Play();
+            if (audioController) audioController.PlayWLAudio("win");
+
 
             for (int i = 0; i < LineId.Count; i++)
             {
@@ -591,10 +577,8 @@ public class SlotBehaviour : MonoBehaviour
         }
         else
         {
-            if (_audioSource) _audioSource.Stop();
-            if (_audioSource) _audioSource.loop = false;
-            if (_audioSource) _audioSource.clip = _lossSound;
-            if (_audioSource) _audioSource.Play();
+            if (audioController) audioController.PlayWLAudio("lose");
+
         }
     }
 
