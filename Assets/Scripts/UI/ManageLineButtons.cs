@@ -15,23 +15,28 @@ public class ManageLineButtons : MonoBehaviour, IPointerEnterHandler,IPointerExi
 	private TMP_Text num_text;
 	[SerializeField]
 	private Sprite Disabled_Button;
+	internal bool isActive = false;
 
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		if (Application.platform == RuntimePlatform.WebGLPlayer && !Application.isMobilePlatform)
+
+		Debug.Log("run on pointer enter");
+		if (isActive)
 		{
-			Debug.Log("run on pointer enter");
 			slotManager.GenerateStaticLine(num_text);
 		}
+
 	}
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		if (Application.platform == RuntimePlatform.WebGLPlayer && !Application.isMobilePlatform)
+
+		Debug.Log("run on pointer exit");
+		if (isActive)
 		{
-			Debug.Log("run on pointer exit");
 			slotManager.DestroyStaticLine();
 		}
+
 	}
 	public void OnPointerDown(PointerEventData eventData)
 	{
