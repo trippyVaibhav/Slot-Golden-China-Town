@@ -370,6 +370,9 @@ public class SlotBehaviour : MonoBehaviour
     //function to populate animation sprites accordingly
     private void PopulateAnimationSprites(ImageAnimation animScript, int val)
     {
+        animScript.textureArray.Clear();
+        animScript.textureArray.TrimExcess();
+        animScript.AnimationSpeed = 15f;
         switch (val)
         {
             case 0:
@@ -389,7 +392,6 @@ public class SlotBehaviour : MonoBehaviour
                 {
                     animScript.textureArray.Add(Q_Sprite[i]);
                 }
-               // animScript.AnimationSpeed = 30f;
                 break;
             case 3:
                 for (int i = 0; i < K_Sprite.Length; i++)
@@ -408,7 +410,6 @@ public class SlotBehaviour : MonoBehaviour
                 {
                     animScript.textureArray.Add(Sycee_Sprite[i]);
                 }
-               // animScript.AnimationSpeed = 30f;
                 break;
             case 6:
                 for (int i = 0; i < Fan_Sprite.Length; i++)
@@ -440,35 +441,35 @@ public class SlotBehaviour : MonoBehaviour
                 {
                     animScript.textureArray.Add(Jackpot_Sprite[i]);
                 }
-                animScript.AnimationSpeed = 50f;
+                animScript.AnimationSpeed = 30f;
                 break;
             case 11:
                 for (int i = 0; i < Wild_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Wild_Sprite[i]);
                 }
-                animScript.AnimationSpeed = 50f;
+                animScript.AnimationSpeed = 30f;
                 break;
             case 12:
                 for (int i = 0; i < Scatter_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Scatter_Sprite[i]);
                 }
-                animScript.AnimationSpeed = 50f;
+                animScript.AnimationSpeed = 30f;
                 break;
             case 13:
                 for (int i = 0; i < Bonus_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Bonus_Sprite[i]);
                 }
-                animScript.AnimationSpeed = 50f;
+                  animScript.AnimationSpeed = 30f;
                 break;
             case 14:
                 for (int i = 0; i < Freespin_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Freespin_Sprite[i]);
                 }
-                animScript.AnimationSpeed = 50f;
+                animScript.AnimationSpeed = 30f;
                 break;
         }
     }
@@ -556,6 +557,27 @@ public class SlotBehaviour : MonoBehaviour
         }
         if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.haveWon.ToString();
         if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString();
+        
+        if (SocketManager.resultData.WinAmout >= bet * 5 && SocketManager.resultData.WinAmout < bet * 10)
+        {
+            uiManager.PopulateWin(1, SocketManager.resultData.WinAmout);
+        }
+        else if (SocketManager.resultData.WinAmout >= bet * 10 && SocketManager.resultData.WinAmout < bet * 15)
+        {
+            uiManager.PopulateWin(2, SocketManager.resultData.WinAmout);
+        }
+        else if (SocketManager.resultData.WinAmout >= bet * 15)
+        {
+            uiManager.PopulateWin(3, SocketManager.resultData.WinAmout);
+        }
+        else if (SocketManager.resultData.WinAmout >= bet * 15)
+        {
+            uiManager.PopulateWin(4, SocketManager.resultData.WinAmout);
+        }
+        else if (SocketManager.resultData.WinAmout >= bet * 15)
+        {
+            uiManager.PopulateWin(5, SocketManager.resultData.WinAmout);
+        }
     }
 
     void ToggleButtonGrp(bool toggle)
