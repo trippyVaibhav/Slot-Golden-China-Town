@@ -22,31 +22,55 @@ public class SocketIOManager : MonoBehaviour
     internal GameData resultData = null;
     internal PlayerData playerdata = null;
     WebSocket currentSocket = null;
-    internal bool isResultdone = false;
+    internal bool isResultdone = false; 
+    protected string gameID = "SL-GCT";
 
     private void Start()
     {
         OpenWebsocket();
     }
 
+    private void InitRequest(WebSocket webSocket)
+    {
+        InitData message = new InitData();
+        message.Data = new AuthData();
+        message.Data.GameID = gameID;
+        message.id = "Auth";
+        // Serialize message data to JSON
+        string json = JsonUtility.ToJson(message);
+        Debug.Log(json);
+        // Send the message
+        webSocket.Send(json);
+    }
+
+
     private void OpenWebsocket()
     {
-        var webSocket = new WebSocket(new Uri("wss://slotwebsocket.onrender.com"));
+        var webSocket = new WebSocket(new Uri("wss://slotwebsocket-new.onrender.com"));
         webSocket.OnOpen += OnWebSocketOpen;
         webSocket.OnMessage += OnMessageReceived;
         webSocket.OnError += OnWebSocketError;
         webSocket.Open();
     }
 
-    private void OnWebSocketError(WebSocket webSocket, string message)
+    internal void CloseWebSocket()
+    {
+        if (currentSocket != null)
+        {
+            currentSocket.Close();
+        }
+    }
+
+    private void OnWebSocketError (WebSocket webSocket, string message)
     {
         Debug.Log(message);
     }
 
     private void OnWebSocketOpen(WebSocket webSocket)
     {
-        //Debug.Log("WebSocket is now Open!");
+        Debug.Log("WebSocket is now Open!");
         currentSocket = webSocket;
+        InitRequest(webSocket);
     }
 
     private void OnMessageReceived(WebSocket webSocket, string message)
@@ -205,13 +229,25 @@ public class SocketIOManager : MonoBehaviour
 public class BetData
 {
     public double CurrentBet;
-    //public double TotalLines;
+}
+
+[Serializable]
+public class AuthData
+{
+    public string GameID;
 }
 
 [Serializable]
 public class MessageData
 {
     public BetData Data;
+    public string id;
+}
+
+[Serializable]
+public class InitData
+{
+    public AuthData Data;
     public string id;
 }
 
@@ -238,6 +274,7 @@ public class GameData
     public double freeSpins { get; set; }
     public List<string> FinalsymbolsToEmit { get; set; }
     public List<string> FinalResultReel { get; set; }
+    public double jackpot { get; set; }
 }
 
 [Serializable]
@@ -247,7 +284,6 @@ public class Message
     public UIData UIData { get; set; }
     public PlayerData PlayerData { get; set; }
 }
-
 [Serializable]
 public class Root
 {

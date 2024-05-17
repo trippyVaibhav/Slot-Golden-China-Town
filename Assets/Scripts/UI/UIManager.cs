@@ -113,14 +113,27 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text Win_Text;
 
+    [Header("FreeSpins Popup")]
+    [SerializeField]
+    private GameObject FreeSpinPopup_Object;
+    [SerializeField]
+    private TMP_Text Free_Text;
+    [SerializeField]
+    private Button FreeSpin_Button;
+
     [SerializeField]
     private AudioController audioController;
 
     [SerializeField]
     private Button GameExit_Button;
 
+    [SerializeField]
+    private SlotBehaviour slotManager;
+
     private bool isMusic = true;
     private bool isSound = true;
+
+    private int FreeSpins;
 
 
     private void Start()
@@ -159,6 +172,9 @@ public class UIManager : MonoBehaviour
         if (GameExit_Button) GameExit_Button.onClick.RemoveAllListeners();
         if (GameExit_Button) GameExit_Button.onClick.AddListener(CallOnExitFunction);
 
+        if (FreeSpin_Button) FreeSpin_Button.onClick.RemoveAllListeners();
+        if (FreeSpin_Button) FreeSpin_Button.onClick.AddListener(delegate { StartFreeSpins(FreeSpins); });
+
         if (audioController) audioController.ToggleMute(false);
 
         isMusic = true;
@@ -196,6 +212,22 @@ public class UIManager : MonoBehaviour
         StartPopupAnim(amount);
     }
 
+
+    private void StartFreeSpins(int spins)
+    {
+        if (MainPopup_Object) MainPopup_Object.SetActive(false);
+        if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(false);
+        slotManager.FreeSpin(spins);
+    }
+
+    internal void FreeSpinProcess(int spins)
+    {
+        FreeSpins = spins;
+        if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);
+        if (Free_Text) Free_Text.text = spins.ToString();
+        if (MainPopup_Object) MainPopup_Object.SetActive(true);
+    }
+
     private void StartPopupAnim(double amount)
     {
         int initAmount = 0;
@@ -211,6 +243,7 @@ public class UIManager : MonoBehaviour
         {
             if (WinPopup_Object) WinPopup_Object.SetActive(false);
             if (MainPopup_Object) MainPopup_Object.SetActive(false);
+            slotManager.CheckBonusGame();
         });
     }
 
@@ -265,6 +298,7 @@ public class UIManager : MonoBehaviour
 
     private void CallOnExitFunction()
     {
+        slotManager.CallCloseSocket();
         Application.ExternalCall("window.parent.postMessage", "onExit", "*");
     }
 
