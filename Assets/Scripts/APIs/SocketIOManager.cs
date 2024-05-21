@@ -24,6 +24,8 @@ public class SocketIOManager : MonoBehaviour
     WebSocket currentSocket = null;
     internal bool isResultdone = false; 
     protected string gameID = "SL-GCT";
+    [SerializeField]
+    internal List<string> bonusdata = null;
 
     private void Start()
     {
@@ -46,7 +48,7 @@ public class SocketIOManager : MonoBehaviour
 
     private void OpenWebsocket()
     {
-        var webSocket = new WebSocket(new Uri("wss://slotwebsocket-new.onrender.com"));
+        var webSocket = new WebSocket(new Uri("wss://qwc82cmb-3036.inc1.devtunnels.ms/"));
         webSocket.OnOpen += OnWebSocketOpen;
         webSocket.OnMessage += OnMessageReceived;
         webSocket.OnError += OnWebSocketError;
@@ -93,6 +95,7 @@ public class SocketIOManager : MonoBehaviour
                     initialData = myData.message.GameData;
                     initUIData = myData.message.UIData;
                     playerdata = myData.message.PlayerData;
+                    bonusdata = myData.message.BonusData;
                     List<string> LinesString = ConvertListListIntToListString(initialData.Lines);
                     List<string> InitialReels = ConvertListOfListsToStrings(initialData.Reel);
                     InitialReels = RemoveQuotes(InitialReels);
@@ -275,6 +278,8 @@ public class GameData
     public List<string> FinalsymbolsToEmit { get; set; }
     public List<string> FinalResultReel { get; set; }
     public double jackpot { get; set; }
+    public bool isBonus { get; set; }
+    public double BonusStopIndex { get; set; }
 }
 
 [Serializable]
@@ -283,7 +288,9 @@ public class Message
     public GameData GameData { get; set; }
     public UIData UIData { get; set; }
     public PlayerData PlayerData { get; set; }
+    public List<string> BonusData { get; set; }
 }
+
 [Serializable]
 public class Root
 {

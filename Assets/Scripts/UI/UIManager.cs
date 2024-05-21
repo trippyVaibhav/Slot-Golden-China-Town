@@ -293,6 +293,7 @@ public class UIManager : MonoBehaviour
                 text += "\n2x - " + paylines.symbols[i].multiplier._2x;
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
+
         }
     }
 

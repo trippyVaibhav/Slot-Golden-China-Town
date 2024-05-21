@@ -102,7 +102,6 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private TMP_Text TotalWin_text;
 
-
     [Header("Audio Management")]
     [SerializeField]
     private AudioController audioController;
@@ -144,6 +143,10 @@ public class SlotBehaviour : MonoBehaviour
     internal bool CheckPopups = false;
     private int BetCounter = 0;
     private int LineCounter = 0;
+
+    [Header("BonusGame Popup")]
+    [SerializeField]
+    private BonusController _bonusManager;
 
     private void Start()
     {
@@ -364,6 +367,7 @@ public class SlotBehaviour : MonoBehaviour
         if (Lines_text) Lines_text.text = SocketManager.initialData.LinesCount[LineCounter].ToString();
         if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.haveWon.ToString("f2");
         if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString("f2");
+        _bonusManager.PopulateWheel(SocketManager.bonusdata);
         uiManager.InitialiseUIData(SocketManager.initUIData.AbtLogo.link, SocketManager.initUIData.AbtLogo.logoSprite, SocketManager.initUIData.ToULink, SocketManager.initUIData.PopLink, SocketManager.initUIData.paylines, SocketManager.initUIData.spclSymbolTxt);
     }
 
@@ -539,6 +543,7 @@ public class SlotBehaviour : MonoBehaviour
         }
 
         double bet = 0;
+        double balance = 0;
         try
         {
             bet = double.Parse(TotalBet_text.text);
@@ -547,6 +552,19 @@ public class SlotBehaviour : MonoBehaviour
         {
             Debug.Log("Error while conversion " + e.Message);
         }
+
+        try
+        {
+            balance = double.Parse(Balance_text.text);
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error while conversion " + e.Message);
+        }
+
+        balance = balance - bet;
+
+        if (Balance_text) Balance_text.text = balance.ToString("f2");
 
         SocketManager.AccumulateResult(bet);
 
@@ -577,9 +595,9 @@ public class SlotBehaviour : MonoBehaviour
 
         CheckPopups = true;
 
-        if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.haveWon.ToString();
+        if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.haveWon.ToString("f2");
 
-        if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString();
+        if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString("f2");
 
         if (SocketManager.resultData.jackpot > 0)
         {
@@ -629,6 +647,15 @@ public class SlotBehaviour : MonoBehaviour
 
     internal void CheckBonusGame()
     {
+        if (SocketManager.resultData.isBonus)
+        {
+            _bonusManager.StartBonus((int)SocketManager.resultData.BonusStopIndex);
+        }
+        else
+        {
+            CheckPopups = false;
+        }
+
         if (SocketManager.resultData.freeSpins > 0)
         {
             if (IsAutoSpin)
@@ -636,7 +663,6 @@ public class SlotBehaviour : MonoBehaviour
                 StopAutoSpin();
             }
         }
-        CheckPopups = false;
     }
 
     void ToggleButtonGrp(bool toggle)
