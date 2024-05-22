@@ -588,7 +588,6 @@ public class SlotBehaviour : MonoBehaviour
             yield return StopTweening(5, Slot_Transform[i], i);
         }
 
-        yield return new WaitForSeconds(0.3f);
         CheckPayoutLineBackend(SocketManager.resultData.linesToEmit, SocketManager.resultData.FinalsymbolsToEmit, SocketManager.resultData.jackpot);
         KillAllTweens();
 
