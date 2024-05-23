@@ -6,37 +6,24 @@ using UnityEngine.EventSystems;
 using TMPro;
 using DG.Tweening;
 
-public class ManageLineButtons : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler, IPointerUpHandler,IPointerDownHandler
+public class ManageLineButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
 
 	[SerializeField]
 	private SlotBehaviour slotManager;
 	[SerializeField]
 	private TMP_Text num_text;
-	[SerializeField]
-	private Sprite Disabled_Button;
-	internal bool isActive = false;
 
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-
 		Debug.Log("run on pointer enter");
-		if (isActive)
-		{
-			slotManager.GenerateStaticLine(num_text);
-		}
-
+		slotManager.GenerateStaticLine(num_text);
 	}
 	public void OnPointerExit(PointerEventData eventData)
-	{
-
+	{	
 		Debug.Log("run on pointer exit");
-		if (isActive)
-		{
-			slotManager.DestroyStaticLine();
-		}
-
+		slotManager.DestroyStaticLine();	
 	}
 	public void OnPointerDown(PointerEventData eventData)
 	{
@@ -57,8 +44,7 @@ public class ManageLineButtons : MonoBehaviour, IPointerEnterHandler,IPointerExi
 			{
 				this.gameObject.GetComponent<Button>().spriteState = default;
 				EventSystem.current.SetSelectedGameObject(null);
-				//this.gameObject.GetComponent<Image>().sprite = Disabled_Button;
-			 });
+			});
 		}
 	}
 }

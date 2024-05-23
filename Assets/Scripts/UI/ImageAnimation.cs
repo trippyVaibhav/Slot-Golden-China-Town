@@ -49,7 +49,6 @@ public class ImageAnimation : MonoBehaviour
 
 	private void OnDisable()
 	{
-		//rendererDelegate.sprite = textureArray[0];
 		StopAnimation();
 	}
 
