@@ -543,10 +543,12 @@ public class SlotBehaviour : MonoBehaviour
         }
 
         double bet = 0;
+        double linesCount = 0;
         double balance = 0;
         try
         {
             bet = double.Parse(TotalBet_text.text);
+            linesCount = double.Parse(Lines_text.text);
         }
         catch (Exception e)
         {
@@ -587,7 +589,7 @@ public class SlotBehaviour : MonoBehaviour
         {
             yield return StopTweening(5, Slot_Transform[i], i);
         }
-
+        yield return new WaitForSeconds(0.3f);
         CheckPayoutLineBackend(SocketManager.resultData.linesToEmit, SocketManager.resultData.FinalsymbolsToEmit, SocketManager.resultData.jackpot);
         KillAllTweens();
 
@@ -616,7 +618,7 @@ public class SlotBehaviour : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.2f);
             CheckBonusGame();
         }
 
@@ -639,7 +641,7 @@ public class SlotBehaviour : MonoBehaviour
     }
     internal void CallCloseSocket()
     {
-        SocketManager.CloseWebSocket();
+        SocketManager.CloseSocket();
     }
 
     //bool once = false;
